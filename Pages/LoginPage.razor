@@ -1,0 +1,47 @@
+﻿@page "/login";
+@inject NavigationManager NavManager;
+
+<div class="container">
+    <div class="row bcolor-ati-green">
+        <div class="col-8">
+            <img src="/Images/login_base.png" />
+        </div>
+        <div class="col-4 vl-ati">
+            <div class="row">
+                <div class="col-6">
+                    <button type="button" class="@btnRegistration.setSelected(val: _selectedLogin).GetStyle" @onclick="() => OnSelected(1)">@btnRegistration.GetText</button>
+                </div>
+                <div class="col-6">
+                    <button type="button" class="@btnSignIn.setSelected(val: _selectedLogin).GetStyle" @onclick="() => OnSelected(2)">@btnSignIn.GetText</button>
+                </div>
+            </div>
+            <br />
+            <span class="form-label fcolor-ati-white">Enter your email or login:</span>
+            <input type="text" class="form-control" id="login">
+            <br />
+            <span class="form-label fcolor-ati-white py-2">Enter password:</span>
+            <input type="password" class="form-control" id="pass">
+            <br />
+            <button type="button" @onclick="OnLogin" class="@btnSave.setSelected(val: _selectedLogin).GetStyle">@btnSave.setSelected(val: _selectedLogin).GetText</button>
+            <br />
+        </div>
+    </div>
+</div>
+
+@code
+{
+    private int _selectedLogin = 1;
+
+    private SaveButton btnSave = new();
+    private RegistrationButton btnRegistration = new(id: 1);
+    private SignInButton btnSignIn = new(id: 2);
+
+    private void OnSelected(int p_newValue)
+    {
+        _selectedLogin = p_newValue;
+    }
+    private void OnLogin()
+    {
+        Login();
+    }
+}
