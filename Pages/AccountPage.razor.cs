@@ -11,24 +11,28 @@ namespace FirstBlazor.Pages
         {
             _model = new()
             {
-                Accounts = rep_account.Items(),
-                Changed = new Dictionary<AccountDBModel, DBSaveEnum>()
+                Accounts = rep_account.Items()
             };
         }
         private void Save()
         {
+            bool isNeedRefreshPage = false;
+
             if (!string.IsNullOrEmpty(_newValue))
             {
-                NavManager.NavigateTo(NavManager.Uri, forceLoad: true);
                 rep_account.AddItem(new() { Name = _newValue });
+                _newValue = "";
+
+                isNeedRefreshPage = true;
             }
 
-            foreach(var item in _model.Changed)
+            rep_account.SaveChanges();
+
+            _selected = 0;
+
+            if(isNeedRefreshPage)
             {
-                if(item.Value == DBSaveEnum.Edit)
-                {
-                    rep_account.EditItem(item.Key);
-                }
+                NavManager.NavigateTo(NavManager.Uri, forceLoad: true);
             }
         }
     }

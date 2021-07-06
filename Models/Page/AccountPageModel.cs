@@ -7,6 +7,5 @@ namespace FirstBlazor.Models.Page
     public class AccountPageModel
     {
         public IEnumerable<AccountDBModel> Accounts { get; set; }
-        public IDictionary<AccountDBModel, DBSaveEnum> Changed {get;set;}
     }
 }

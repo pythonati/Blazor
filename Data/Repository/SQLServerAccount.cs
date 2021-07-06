@@ -22,23 +22,6 @@ namespace FirstBlazor.Data.Repository
             try
             {
                 _context.Accounts.Add(item);
-                _context.SaveChanges();
-
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public bool EditItem(AccountDBModel item)
-        {
-            try
-            {
-                var _item = _context.Accounts.Attach(item);
-                _item.State = EntityState.Modified;
-                _context.SaveChanges();
 
                 return true;
             }
@@ -51,6 +34,20 @@ namespace FirstBlazor.Data.Repository
         public IEnumerable<AccountDBModel> Items()
         {
             return _context.Accounts.ToList();
+        }
+
+        public bool SaveChanges()
+        {
+            try
+            {
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
