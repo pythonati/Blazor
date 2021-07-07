@@ -35,5 +35,12 @@ namespace FirstBlazor.Pages
                 NavManager.NavigateTo(NavManager.Uri, forceLoad: true);
             }
         }
+        private void Delete(AccountDBModel item)
+        {
+            rep_account.RemoveItem(item);
+            rep_account.SaveChanges();
+
+            NavManager.NavigateTo(NavManager.Uri, forceLoad: true);
+        }
     }
 }

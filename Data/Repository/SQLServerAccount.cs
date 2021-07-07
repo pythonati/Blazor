@@ -49,5 +49,19 @@ namespace FirstBlazor.Data.Repository
                 return false;
             }
         }
+        public bool RemoveItem(AccountDBModel item)
+        {
+            try
+            {
+                _context.Accounts.Remove(item);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
     }
 }

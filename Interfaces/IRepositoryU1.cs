@@ -18,5 +18,9 @@ namespace FirstBlazor.Interfaces
         {
             throw new NullReferenceException();
         }
+        bool RemoveItem(T item)
+        {
+            throw new NullReferenceException();
+        }
     }
 }
