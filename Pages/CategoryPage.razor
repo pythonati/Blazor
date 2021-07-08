@@ -1,0 +1,85 @@
+﻿@page "/category";
+@inject FirstBlazor.Interfaces.IRepositoryU1<CategoryDBModel> rep_category;
+@inject NavigationManager NavManager;
+
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+        </div>
+        <div class="col-8 btn-group btn-group-sm">
+            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnTran">Расход/Доход</button>
+            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnTranList">Записи</button>
+            <button type="button" class="btn btn-ati-btn-light-action">Анализ</button>
+            <button type="button" class="btn btn-ati-btn-light-disable">Категории</button>
+            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnAccounts">Счета</button>
+        </div>
+    </div>
+    <div class="row bcolor-ati-whitesmoke">
+        <div class="col-4">
+            <p>10000</p>
+        </div>
+        <div class="col-8">
+            <br>
+            @foreach (var _item in _model.Category)
+            {
+                if (_selected == _item.Id)
+                {
+                    <input type="text" class="form-control" @bind="_item.Name">
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col-11">
+                            <span class="form-control" @onclick="() => OnClick(_item)">@_item.Name</span>
+                        </div>
+                        <div class="col-1">
+                            <button class="btn btn-secondary btn-sm" @onclick="() => OnDelete(_item)"><i class="fa fa-trash"></i></button>
+                        </div>
+                    </div>
+                }
+            }
+            <input type="text" class="form-control" placeholder="Новый" @bind="_newValue">
+            <br>
+            <button type="button" class="btn btn-light btn-block" @onclick="OnSave">Сохранить</button>
+            <br>
+        </div>
+    </div>
+</div>
+
+@code
+{
+    private int _selected = 0;
+    private string _newValue = "";
+
+    private CategoryPageModel _model;    //We do initialization here Initialized()
+
+    protected override void OnInitialized()
+    {
+        Initialized();
+    }
+
+    private void OnSave()
+    {
+        Save();
+    }
+    private void OnClick(CategoryDBModel item)
+    {
+        _selected = item.Id;
+    }
+    private void OnDelete(CategoryDBModel item)
+    {
+        Delete(item);
+    }
+    private void OnTranList()
+    {
+        NavManager.NavigateTo("/login");
+    }
+    private void OnTran()
+    {
+        NavManager.NavigateTo("/transaction");
+    }
+    private void OnAccounts()
+    {
+        NavManager.NavigateTo("/account");
+    }
+}
