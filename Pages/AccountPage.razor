@@ -10,8 +10,9 @@
             <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnTran">Расход/Доход</button>
             <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnTranList">Записи</button>
             <button type="button" class="btn btn-ati-btn-light-action">Анализ</button>
-            <button type="button" class="btn btn-ati-btn-light-action">Категории</button>
+            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnCategory">Категории</button>
             <button type="button" class="btn btn-ati-btn-light-disable">Счета</button>
+            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnLables">Метки</button>
         </div>
     </div>
     <div class="row bcolor-ati-whitesmoke">
@@ -78,5 +79,12 @@
     {
         NavManager.NavigateTo("/transaction");
     }
-
-}
+    private void OnCategory()
+    {
+        NavManager.NavigateTo("/category");
+    }
+    private void OnLables()
+    {
+        NavManager.NavigateTo("/lable");
+    }
+}}

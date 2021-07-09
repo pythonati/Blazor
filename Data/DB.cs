@@ -9,5 +9,6 @@ namespace FirstBlazor.Data
         public DbSet<TranDBModel> Trans { get; set; }
         public DbSet<AccountDBModel> Accounts { get; set; }
         public DbSet<CategoryDBModel> Category { get; set; }
+        public DbSet<LableDBModel> Lables { get; set; }
     }
 }

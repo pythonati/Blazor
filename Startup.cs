@@ -37,6 +37,7 @@ namespace FirstBlazor
             services.AddScoped<IRepositoryU1<TranDBModel>, SQLServerTran>();
             services.AddScoped<IRepositoryU1<AccountDBModel>, SQLServerAccount>();
             services.AddScoped<IRepositoryU1<CategoryDBModel>, SQLServerCategory>();
+            services.AddScoped<IRepositoryU1<LableDBModel>, SQLServerLable>();
 
             services.AddSingleton<WeatherForecastService>();
         }

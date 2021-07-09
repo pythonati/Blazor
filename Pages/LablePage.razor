@@ -1,5 +1,5 @@
-﻿@page "/category";
-@inject FirstBlazor.Interfaces.IRepositoryU1<CategoryDBModel> rep_category;
+﻿@page "/lable";
+@inject FirstBlazor.Interfaces.IRepositoryU1<LableDBModel> rep_lable;
 @inject NavigationManager NavManager;
 
 <div class="container">
@@ -10,9 +10,9 @@
             <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnTran">Расход/Доход</button>
             <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnTranList">Записи</button>
             <button type="button" class="btn btn-ati-btn-light-action">Анализ</button>
-            <button type="button" class="btn btn-ati-btn-light-disable">Категории</button>
+            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnCategory">Категории</button>
             <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnAccounts">Счета</button>
-            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnLables">Метки</button>
+            <button type="button" class="btn btn-ati-btn-light-disable">Метки</button>
         </div>
     </div>
     <div class="row bcolor-ati-whitesmoke">
@@ -21,7 +21,7 @@
         </div>
         <div class="col-8">
             <br>
-            @foreach (var _item in _model.Category)
+            @foreach (var _item in _model.Lables)
             {
                 if (_selected == _item.Id)
                 {
@@ -52,7 +52,7 @@
     private int _selected = 0;
     private string _newValue = "";
 
-    private CategoryPageModel _model;    //We do initialization here Initialized()
+    private LablePageModel _model;    //We do initialization here Initialized()
 
     protected override void OnInitialized()
     {
@@ -63,11 +63,11 @@
     {
         Save();
     }
-    private void OnClick(CategoryDBModel item)
+    private void OnClick(LableDBModel item)
     {
         _selected = item.Id;
     }
-    private void OnDelete(CategoryDBModel item)
+    private void OnDelete(LableDBModel item)
     {
         Delete(item);
     }
@@ -83,8 +83,9 @@
     {
         NavManager.NavigateTo("/account");
     }
-    private void OnLables()
+    private void OnCategory()
     {
-        NavManager.NavigateTo("/lable");
+        NavManager.NavigateTo("/category");
     }
+
 }
