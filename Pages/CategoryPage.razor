@@ -23,21 +23,14 @@
             <br>
             @foreach (var _item in _model.Category)
             {
-                if (_selected == _item.Id)
-                {
-                    <input type="text" class="form-control" @bind="_item.Name">
-                }
-                else
-                {
-                    <div class="row">
-                        <div class="col-11">
-                            <span class="form-control" @onclick="() => OnClick(_item)">@_item.Name</span>
-                        </div>
-                        <div class="col-1">
-                            <button class="btn btn-secondary btn-sm" @onclick="() => OnDelete(_item)"><i class="fa fa-trash"></i></button>
+                <div class="row">
+                    <div class="col-12 input-group">
+                        <input type="text" class="form-control" @bind="_item.Name">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" @onclick="() => OnDelete(_item)"><i class="fa fa-trash"></i></button>
                         </div>
                     </div>
-                }
+                </div>
             }
             <input type="text" class="form-control" placeholder="Новый" @bind="_newValue">
             <br>
@@ -49,7 +42,6 @@
 
 @code
 {
-    private int _selected = 0;
     private string _newValue = "";
 
     private CategoryPageModel _model;    //We do initialization here Initialized()
@@ -62,10 +54,6 @@
     private void OnSave()
     {
         Save();
-    }
-    private void OnClick(CategoryDBModel item)
-    {
-        _selected = item.Id;
     }
     private void OnDelete(CategoryDBModel item)
     {

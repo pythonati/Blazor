@@ -29,8 +29,6 @@ namespace FirstBlazor.Pages
 
             rep_lable.SaveChanges();
 
-            _selected = 0;
-
             if (isNeedRefreshPage)
             {
                 NavManager.NavigateTo(NavManager.Uri, forceLoad: true);

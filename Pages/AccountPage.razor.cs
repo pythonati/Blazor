@@ -28,8 +28,6 @@ namespace FirstBlazor.Pages
 
             rep_account.SaveChanges();
 
-            _selected = 0;
-
             if(isNeedRefreshPage)
             {
                 NavManager.NavigateTo(NavManager.Uri, forceLoad: true);

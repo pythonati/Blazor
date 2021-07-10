@@ -1,5 +1,6 @@
 ﻿@page "/transaction";
 @inject FirstBlazor.Interfaces.IRepositoryU1<TranDBModel> rep_trans;
+@inject FirstBlazor.Interfaces.IRepositoryU1<LableDBModel> rep_lable;
 @inject NavigationManager NavManager;
 
 <div class="container">
@@ -62,6 +63,11 @@
                         <div class="col-8">
                             <input type="text" class="form-control" placeholder="Примечание" id="note" @bind="_model.Note">
                         </div>
+                        <div class="col-4">
+                            <button class="btn btn-primary btn-block" @onclick="OnAddNewLable">
+                                Добавить метку
+                            </button>
+                        </div>
                     </div>
                     <br />
                     <button type="button" class="@btnSave.GetStyle" @onclick="OnSave">@btnSave.GetText</button>
@@ -70,9 +76,39 @@
         </div>
     </div>
 </div>
+@if (ShowPopupLables)
+{
+<div class="modal" tabindex="-1" style="display:block" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">Метки</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="OnClosePopupLable">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @foreach (var item in rep_lable.Items())
+                {
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input">
+                        <label class="form-check-label">@item.Name</label>
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Добавить</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="OnClosePopupLable">Отмена</button>
+            </div>
+        </div>
+    </div>
+</div>
+}
 
 @code
 {
+    bool ShowPopupLables = false;
+
     private TransactionPageModel _model;    //We do initialization here Initialized()
 
     private int _selectedTab = 1;
@@ -95,6 +131,14 @@
     private void OnSave()
     {
         Save();
+    }
+    private void OnAddNewLable()
+    {
+        ShowPopupLables = true;
+    }
+    private void OnClosePopupLable()
+    {
+        ShowPopupLables = false;
     }
     private void OnTranList()
     {
