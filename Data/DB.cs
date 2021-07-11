@@ -10,5 +10,11 @@ namespace FirstBlazor.Data
         public DbSet<AccountDBModel> Accounts { get; set; }
         public DbSet<CategoryDBModel> Category { get; set; }
         public DbSet<LableDBModel> Lables { get; set; }
+        public DbSet<TransLablesModel> TransLables { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<TransLablesModel>().HasKey(u => new { u.TransactionId, u.LableId });
+        }
     }
 }

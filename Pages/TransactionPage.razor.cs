@@ -20,7 +20,7 @@ namespace FirstBlazor.Pages
         }
         private void Save()
         {
-            _model.ToString();
+//            _model.ToString();
 
             TranDBModel item = new()
             {
@@ -36,6 +36,22 @@ namespace FirstBlazor.Pages
 
             if (_model.Action == DBSaveEnum.Edit)
                 rep_trans.EditItem(item);
+        }
+        private void Add_RemoveSelectedLable(LableDBModel item)
+        {
+            if(_selectedLables.Contains(item))
+            {
+                _selectedLables.Remove(item);
+            }
+            else
+            {
+                _selectedLables.Add(item);
+            }
+        }
+        private void AddLables()
+        {
+            var t = _selectedLables.Count;
+            var r = rep_trans.
         }
         public class SaveButton : IText, IStyle
         {

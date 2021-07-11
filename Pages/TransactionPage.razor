@@ -64,7 +64,7 @@
                             <input type="text" class="form-control" placeholder="Примечание" id="note" @bind="_model.Note">
                         </div>
                         <div class="col-4">
-                            <button class="btn btn-primary btn-block" @onclick="OnAddNewLable">
+                            <button class="btn btn-primary btn-block" @onclick="OnShowPopupLable">
                                 Добавить метку
                             </button>
                         </div>
@@ -78,36 +78,37 @@
 </div>
 @if (ShowPopupLables)
 {
-<div class="modal" tabindex="-1" style="display:block" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h6 class="modal-title">Метки</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="OnClosePopupLable">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                @foreach (var item in rep_lable.Items())
-                {
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input">
-                        <label class="form-check-label">@item.Name</label>
-                    </div>
-                }
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Добавить</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="OnClosePopupLable">Отмена</button>
+    <div class="modal" tabindex="-1" style="display:block" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title">Метки</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="OnHidePopupLable">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @foreach (var item in rep_lable.Items())
+                    {
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="@item.Id" @onclick="() => OnSelectedLable(item)">
+                            <label class="form-check-label" for="@item.Id">@item.Name</label>
+                        </div>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" @onclick="OnAddLables">Добавить</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="OnHidePopupLable">Отмена</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 }
 
 @code
 {
     bool ShowPopupLables = false;
+    HashSet<LableDBModel> _selectedLables = new();
 
     private TransactionPageModel _model;    //We do initialization here Initialized()
 
@@ -132,13 +133,23 @@
     {
         Save();
     }
-    private void OnAddNewLable()
+    private void OnShowPopupLable()
     {
+        _selectedLables.Clear();
+
         ShowPopupLables = true;
     }
-    private void OnClosePopupLable()
+    private void OnHidePopupLable()
     {
         ShowPopupLables = false;
+    }
+    private void OnSelectedLable(LableDBModel item)
+    {
+        Add_RemoveSelectedLable(item);
+    }
+    private void OnAddLables()
+    {
+        AddLables();
     }
     private void OnTranList()
     {

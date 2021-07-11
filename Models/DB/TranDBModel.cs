@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace FirstBlazor.Models.DB
 {
@@ -10,5 +11,6 @@ namespace FirstBlazor.Models.DB
         public int Account { get; set; }
         public int Category { get; set; }
         public string Note { get; set; }
+        public IEnumerable<TransLablesModel> Lables { get; set; }
     }
 }
