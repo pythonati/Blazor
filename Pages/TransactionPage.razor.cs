@@ -51,7 +51,7 @@ namespace FirstBlazor.Pages
         private void AddLables()
         {
             var t = _selectedLables.Count;
-            var r = rep_trans.
+//            var r = rep_trans.
         }
         public class SaveButton : IText, IStyle
         {

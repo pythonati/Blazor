@@ -6,7 +6,7 @@ namespace FirstBlazor.Models.DB
     {
         public int Id { get; set; }
 
-        [MaxLength(500)]
+        [MaxLength(500), Required]
         public string Name { get; set; }
     }
 }
