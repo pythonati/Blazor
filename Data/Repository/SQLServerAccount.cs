@@ -62,6 +62,9 @@ namespace FirstBlazor.Data.Repository
                 return false;
             }
         }
-
+        public AccountDBModel GetFirstItem()
+        {
+            return _context.Accounts.FirstOrDefault<AccountDBModel>();
+        }
     }
 }

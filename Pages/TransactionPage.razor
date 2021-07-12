@@ -1,6 +1,8 @@
 ﻿@page "/transaction";
 @inject FirstBlazor.Interfaces.IRepositoryU1<TranDBModel> rep_trans;
 @inject FirstBlazor.Interfaces.IRepositoryU1<LableDBModel> rep_lable;
+@inject FirstBlazor.Interfaces.IRepositoryU1<CategoryDBModel> rep_category;
+@inject FirstBlazor.Interfaces.IRepositoryU1<AccountDBModel> rep_account;
 @inject NavigationManager NavManager;
 
 <div class="container">
@@ -34,14 +36,22 @@
                             <span class="label col-form-label-sm fcolor-ati-black">Со счета:</span>
                         </div>
                         <div class="col-6">
-                            <select class="form-control" id="account" @bind="_model.Account">
-                                <option value="1" class="col-form-label-sm">Счет 1</option>
-                                <option value="2" class="col-form-label-sm">Счет 2</option>
-                                <option value="3" class="col-form-label-sm">Счет 3</option>
+                            <select class="form-control" id="account" @bind="_model.Transaction.Account">
+                                @foreach (var item in rep_account.Items())
+                                {
+                                    if (item.Id == _model.Transaction.Account)
+                                    {
+                                        <option value="@item.Id" class="col-form-label" selected>@item.Name</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.Id" class="col-form-label">@item.Name</option>
+                                    }
+                                }
                             </select>
                         </div>
                         <div class="col-4">
-                            <input type="number" class="form-control text-right" id="amount" @bind="_model.Amount">
+                            <input type="number" class="form-control text-right" id="amount" @bind="_model.Transaction.Amount">
                         </div>
                     </div>
                     <div class="row vl-ati-3">
@@ -49,19 +59,27 @@
                             <span class="label col-form-label-sm fcolor-ati-black">Категория:</span>
                         </div>
                         <div class="col-6">
-                            <select class="form-control" id="category" @bind="_model.Category">
-                                <option value="1" class="col-form-label-sm">Категория 1</option>
-                                <option value="2" class="col-form-label-sm">Категория 2</option>
-                                <option value="3" class="col-form-label-sm">Категория 3</option>
+                            <select class="form-control" id="category" @bind="_model.Transaction.Category">
+                                @foreach (var item in rep_category.Items())
+                                {
+                                    if (item.Id == _model.Transaction.Category)
+                                    {
+                                        <option value="@item.Id" class="col-form-label" selected>@item.Name</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.Id" class="col-form-label">@item.Name</option>
+                                    }
+                                }
                             </select>
                         </div>
                         <div class="col-4">
-                            <input type="date" class="form-control text-right" id="date" @bind="_model.Date">
+                            <input type="date" class="form-control text-right" id="date" @bind="_model.Transaction.Date">
                         </div>
                     </div>
                     <div class="row vl-ati-3">
                         <div class="col-8">
-                            <input type="text" class="form-control" placeholder="Примечание" id="note" @bind="_model.Note">
+                            <input type="text" class="form-control" placeholder="Примечание" id="note" @bind="_model.Transaction.Note">
                         </div>
                         <div class="col-4">
                             <button class="btn btn-primary btn-block" @onclick="OnShowPopupLable">
@@ -110,7 +128,7 @@
     bool ShowPopupLables = false;
     HashSet<LableDBModel> _selectedLables = new();
 
-    private TransactionPageModel _model;    //We do initialization here Initialized()
+    private TransactionPageModel _model = new();    //We do initialization here Initialized()
 
     private int _selectedTab = 1;
 

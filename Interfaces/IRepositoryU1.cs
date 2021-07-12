@@ -22,5 +22,9 @@ namespace FirstBlazor.Interfaces
         {
             throw new NullReferenceException();
         }
+        T GetFirstItem()
+        {
+            throw new NullReferenceException();
+        }
     }
 }

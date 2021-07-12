@@ -1,6 +1,5 @@
 ﻿using FirstBlazor.Interfaces;
 using FirstBlazor.Models.DB;
-using FirstBlazor.OtherClasses.Enum;
 
 namespace FirstBlazor.Pages
 {
@@ -8,11 +7,10 @@ namespace FirstBlazor.Pages
     {
         private void Initialized()
         {
-            _model = new()
+            _model.Transaction = new()
             {
-                Action = DBSaveEnum.Add,
-                Account = 1,
-                Category = 1,
+                Account = rep_account.GetFirstItem()?.Id ?? 0,
+                Category = rep_category.GetFirstItem()?.Id ?? 0,
                 Amount = 0,
                 Date = System.DateTime.Now,
                 Note = ""
@@ -20,9 +18,7 @@ namespace FirstBlazor.Pages
         }
         private void Save()
         {
-//            _model.ToString();
-
-            TranDBModel item = new()
+/*            TranDBModel item = new()
             {
                 Date = _model.Date,
                 Amount = _model.Amount,
@@ -35,7 +31,7 @@ namespace FirstBlazor.Pages
                 rep_trans.AddItem(item);
 
             if (_model.Action == DBSaveEnum.Edit)
-                rep_trans.EditItem(item);
+                rep_trans.EditItem(item);*/
         }
         private void Add_RemoveSelectedLable(LableDBModel item)
         {
