@@ -1,5 +1,6 @@
 ﻿using FirstBlazor.Interfaces;
 using FirstBlazor.Models.DB;
+using FirstBlazor.OtherClasses;
 
 namespace FirstBlazor.Pages
 {
@@ -13,29 +14,30 @@ namespace FirstBlazor.Pages
                 Category = rep_category.GetFirstItem()?.Id ?? 0,
                 Amount = 0,
                 Date = System.DateTime.Now,
-                Note = ""
+                Note = "",
+                Lables = new()
             };
         }
         private void Save()
         {
-/*            TranDBModel item = new()
-            {
-                Date = _model.Date,
-                Amount = _model.Amount,
-                Account = _model.Account,
-                Category = _model.Category,
-                Note = _model.Note
-            };
+            /*            TranDBModel item = new()
+                        {
+                            Date = _model.Date,
+                            Amount = _model.Amount,
+                            Account = _model.Account,
+                            Category = _model.Category,
+                            Note = _model.Note
+                        };
 
-            if (_model.Action == DBSaveEnum.Add)
-                rep_trans.AddItem(item);
+                        if (_model.Action == DBSaveEnum.Add)
+                            rep_trans.AddItem(item);
 
-            if (_model.Action == DBSaveEnum.Edit)
-                rep_trans.EditItem(item);*/
+                        if (_model.Action == DBSaveEnum.Edit)
+                            rep_trans.EditItem(item);*/
         }
         private void Add_RemoveSelectedLable(LableDBModel item)
         {
-            if(_selectedLables.Contains(item))
+            if (_selectedLables.Contains(item))
             {
                 _selectedLables.Remove(item);
             }
@@ -46,8 +48,18 @@ namespace FirstBlazor.Pages
         }
         private void AddLables()
         {
-            var t = _selectedLables.Count;
-//            var r = rep_trans.
+            foreach (var item in _selectedLables)
+            {
+                TransLablesModel transLableModel = new()
+                {
+                    Transaction = _model.Transaction,
+                    TransactionId = _model.Transaction.Id,
+                    Lable = item,
+                    LableId = item.Id
+                };
+
+                _model.Transaction.Lables.AddUniqLable(transLableModel);
+            }
         }
         public class SaveButton : IText, IStyle
         {

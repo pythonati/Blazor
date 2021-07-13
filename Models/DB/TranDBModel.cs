@@ -17,6 +17,6 @@ namespace FirstBlazor.Models.DB
         public int Category { get; set; }
         [MaxLength(500)]
         public string Note { get; set; }
-        public IEnumerable<TransLablesModel> Lables { get; set; }
+        public List<TransLablesModel> Lables { get; set; }
     }
 }
