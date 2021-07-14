@@ -20,20 +20,12 @@ namespace FirstBlazor.Pages
         }
         private void Save()
         {
-            /*            TranDBModel item = new()
-                        {
-                            Date = _model.Date,
-                            Amount = _model.Amount,
-                            Account = _model.Account,
-                            Category = _model.Category,
-                            Note = _model.Note
-                        };
+            if(_model.Transaction.Id == 0)
+            {
+                rep_trans.AddItem(_model.Transaction);
+            }
 
-                        if (_model.Action == DBSaveEnum.Add)
-                            rep_trans.AddItem(item);
-
-                        if (_model.Action == DBSaveEnum.Edit)
-                            rep_trans.EditItem(item);*/
+            rep_trans.SaveChanges();
         }
         private void Add_RemoveSelectedLable(LableDBModel item)
         {

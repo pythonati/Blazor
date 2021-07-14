@@ -27,13 +27,11 @@ namespace FirstBlazor.Data.Repository
                 return false;
             }
         }
-
-        public bool EditItem(TranDBModel item)
+        public bool SaveChanges()
         {
             try
             {
-                var _item = _context.Trans.Attach(item);
-                _item.State = EntityState.Modified;
+                _context.SaveChanges();
 
                 return true;
             }
