@@ -61,6 +61,11 @@ namespace FirstBlazor.Pages
                 _model.Transaction.Lables.AddUniqLable(transLableModel);
             }
         }
+        private void RemoveLable(TransLablesModel item)
+        {
+            _model.Transaction.Lables.Remove(item);
+        }
+
         public class SaveButton : IText, IStyle
         {
             public string GetText => "Сохранить";

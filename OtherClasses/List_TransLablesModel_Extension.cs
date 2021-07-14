@@ -19,5 +19,14 @@ namespace FirstBlazor.OtherClasses
 
             return false;
         }
+        public static bool ContainsLable(this List<TransLablesModel> _this, LableDBModel item)
+        {
+            if (_this.Count<TransLablesModel>(i => i.LableId == item.Id) > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }
