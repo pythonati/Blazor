@@ -32,7 +32,7 @@ namespace FirstBlazor.Data.Repository
 
         public IEnumerable<LableDBModel> Items()
         {
-            return _context.Lables.ToList();
+            return _context.Lables;
         }
 
         public bool SaveChanges()

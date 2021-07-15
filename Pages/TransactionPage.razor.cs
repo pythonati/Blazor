@@ -8,10 +8,13 @@ namespace FirstBlazor.Pages
     {
         private void Initialized()
         {
+            AccountDBModel account = rep_account.GetFirstItem();
+            CategoryDBModel category = rep_category.GetFirstItem();
+
             _model.Transaction = new()
             {
-                Account = rep_account.GetFirstItem()?.Id ?? 0,
-                Category = rep_category.GetFirstItem()?.Id ?? 0,
+                AccountId = account?.Id ?? 0,
+                CategoryId = category?.Id ?? 0,
                 Amount = 0,
                 Date = System.DateTime.Now,
                 Note = "",

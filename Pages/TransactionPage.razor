@@ -36,10 +36,10 @@
                             <span class="label col-form-label-sm fcolor-ati-black">Со счета:</span>
                         </div>
                         <div class="col-6">
-                            <select class="form-control" id="account" @bind="_model.Transaction.Account">
+                            <select class="form-control" id="account" @bind="_model.Transaction.AccountId">
                                 @foreach (var item in rep_account.Items())
                                 {
-                                    if (item.Id == _model.Transaction.Account)
+                                    if (item.Id == _model.Transaction.AccountId)
                                     {
                                         <option value="@item.Id" class="col-form-label" selected>@item.Name</option>
                                     }
@@ -59,10 +59,10 @@
                             <span class="label col-form-label-sm fcolor-ati-black">Категория:</span>
                         </div>
                         <div class="col-6">
-                            <select class="form-control" id="category" @bind="_model.Transaction.Category">
+                            <select class="form-control" id="category" @bind="_model.Transaction.CategoryId">
                                 @foreach (var item in rep_category.Items())
                                 {
-                                    if (item.Id == _model.Transaction.Category)
+                                    if (item.Id == _model.Transaction.CategoryId)
                                     {
                                         <option value="@item.Id" class="col-form-label" selected>@item.Name</option>
                                     }
@@ -189,7 +189,7 @@
     }
     private void OnTranList()
     {
-        NavManager.NavigateTo("/login");
+        NavManager.NavigateTo("/transaction_list");
     }
     private void OnAccounts()
     {

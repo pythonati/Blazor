@@ -4,14 +4,16 @@ using FirstBlazor.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FirstBlazor.Migrations
 {
     [DbContext(typeof(DB))]
-    partial class DBModelSnapshot : ModelSnapshot
+    [Migration("20210715043403_Trans Changed")]
+    partial class TransChanged
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,6 +97,10 @@ namespace FirstBlazor.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AccountId");
+
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Trans");
                 });
 
@@ -111,6 +117,25 @@ namespace FirstBlazor.Migrations
                     b.HasIndex("LableId");
 
                     b.ToTable("TransLables");
+                });
+
+            modelBuilder.Entity("FirstBlazor.Models.DB.TranDBModel", b =>
+                {
+                    b.HasOne("FirstBlazor.Models.DB.AccountDBModel", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FirstBlazor.Models.DB.CategoryDBModel", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("FirstBlazor.Models.DB.TransLablesModel", b =>

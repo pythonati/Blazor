@@ -1,6 +1,7 @@
 ﻿using FirstBlazor.Interfaces;
 using FirstBlazor.Models.DB;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace FirstBlazor.Data.Repository
 {
@@ -40,5 +41,10 @@ namespace FirstBlazor.Data.Repository
                 return false;
             }
         }
+        public IEnumerable<TranDBModel> Items()
+        {
+            return _context.Trans;
+        }
+
     }
 }

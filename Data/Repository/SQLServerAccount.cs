@@ -33,7 +33,7 @@ namespace FirstBlazor.Data.Repository
 
         public IEnumerable<AccountDBModel> Items()
         {
-            return _context.Accounts.ToList();
+            return _context.Accounts;
         }
 
         public bool SaveChanges()

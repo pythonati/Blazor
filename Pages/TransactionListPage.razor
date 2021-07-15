@@ -1,0 +1,90 @@
+﻿@page "/transaction_list";
+@inject FirstBlazor.Interfaces.IRepositoryU1<TranDBModel> rep_trans;
+@inject FirstBlazor.Interfaces.IRepositoryU1<AccountDBModel> rep_account;
+@inject NavigationManager NavManager;
+
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+        </div>
+        <div class="col-8 btn-group btn-group-sm">
+            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnTran">Расход/Доход</button>
+            <button type="button" class="btn btn-ati-btn-light-disable">Записи</button>
+            <button type="button" class="btn btn-ati-btn-light-action">Анализ</button>
+            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnCategory">Категории</button>
+            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnAccounts">Счета</button>
+            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnLables">Метки</button>
+        </div>
+    </div>
+    <div class="row bcolor-ati-whitesmoke">
+        <div class="col-4">
+            <p>10000</p>
+        </div>
+        <div class="col-8">
+            <br>
+            @foreach (var _item in _model.Transactions.OrderByDescending(i => i.Transaction.Date))
+            {
+                <div class="row">
+                    @if (_currDate.ToShortDateString() != _item.Transaction.Date.ToShortDateString())
+                    {
+                        <h6>@_item.Transaction.Date.ToShortDateString()</h6>
+
+                        _currDate = _item.Transaction.Date;
+                    }
+                    <div class="col-12 input-group">
+                        <span class=@getLineStyle(_item.Transaction)>@_item.AccountName</span>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" @onclick="() => OnDelete(_item.Transaction)"><i class="fa fa-edit"></i></button>
+                            <button class="btn btn-outline-secondary" type="button" @onclick="() => OnDelete(_item.Transaction)"><i class="fa fa-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+            }
+            <br>
+        </div>
+    </div>
+</div>
+
+@code
+{
+    private TransactionListPageModel _model = new();    //We do initialization here Initialized()
+
+    private DateTime _currDate = DateTime.MinValue;
+
+    protected override void OnInitialized()
+    {
+        Initialized();
+    }
+
+    private void OnDelete(TranDBModel item)
+    {
+    }
+    private string getLineStyle(TranDBModel item)
+    {
+        if (item.Amount < 0)
+        {
+            return "form-control bcolor-ati-orange fcolor-ati-white";
+        }
+        else
+        {
+            return "form-control bcolor-ati-green fcolor-ati-white";
+
+        }
+    }
+    private void OnTran()
+    {
+        NavManager.NavigateTo("/transaction");
+    }
+    private void OnAccounts()
+    {
+        NavManager.NavigateTo("/account");
+    }
+    private void OnCategory()
+    {
+        NavManager.NavigateTo("/category");
+    }
+    private void OnLables()
+    {
+        NavManager.NavigateTo("/lable");
+    }
+}

@@ -12,9 +12,9 @@ namespace FirstBlazor.Models.DB
         [Required]
         public float Amount { get; set; }
         [Required]
-        public int Account { get; set; }
+        public int AccountId { get; set; }
         [Required]
-        public int Category { get; set; }
+        public int CategoryId { get; set; }
         [MaxLength(500)]
         public string Note { get; set; }
         public List<TransLablesModel> Lables { get; set; }
