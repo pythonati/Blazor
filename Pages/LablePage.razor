@@ -39,12 +39,35 @@
         </div>
     </div>
 </div>
+@if (ShowPopupDelete)
+{
+    <div class="modal" tabindex="-1" style="display:block" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title">Удалить</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="OnHidePopupDelate">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h6><b>Вы не можете удалить элемент справочника на который есть ссылка в операциях</b></h6>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="OnHidePopupDelate">Отмена</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 @code
 {
     private string _newValue = "";
 
     private LablePageModel _model;    //We do initialization here Initialized()
+
+    bool ShowPopupDelete = false;
 
     protected override void OnInitialized()
     {
@@ -57,7 +80,22 @@
     }
     private void OnDelete(LableDBModel item)
     {
-        Delete(item);
+        if (rep_lable.IsHaveLinksById(item))
+        {
+            OnShowPopupDelate();
+        }
+        else
+        {
+            Delete(item);
+        }
+    }
+    private void OnShowPopupDelate()
+    {
+        ShowPopupDelete = true;
+    }
+    private void OnHidePopupDelate()
+    {
+        ShowPopupDelete = false;
     }
     private void OnTranList()
     {

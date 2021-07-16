@@ -66,5 +66,14 @@ namespace FirstBlazor.Data.Repository
         {
             return _context.Category.FirstOrDefault<CategoryDBModel>();
         }
+        public bool IsHaveLinksById(CategoryDBModel item)
+        {
+            if (_context.Trans.FirstOrDefault(i => i.CategoryId == item.Id) is null)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

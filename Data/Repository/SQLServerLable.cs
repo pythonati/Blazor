@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FirstBlazor.Data.Repository
 {
-    public class SQLServerLable: IRepositoryU1<LableDBModel>
+    public class SQLServerLable : IRepositoryU1<LableDBModel>
     {
         private readonly DB _context;
 
@@ -60,6 +60,15 @@ namespace FirstBlazor.Data.Repository
             {
                 return false;
             }
+        }
+        public bool IsHaveLinksById(LableDBModel item)
+        {
+            if (_context.TransLables.FirstOrDefault(i => i.LableId == item.Id) is null)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

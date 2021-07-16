@@ -26,5 +26,9 @@ namespace FirstBlazor.Interfaces
         {
             throw new NullReferenceException();
         }
+        bool IsHaveLinksById(T item)
+        {
+            throw new NullReferenceException();
+        }
     }
 }

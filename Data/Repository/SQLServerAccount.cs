@@ -66,5 +66,14 @@ namespace FirstBlazor.Data.Repository
         {
             return _context.Accounts.FirstOrDefault<AccountDBModel>();
         }
+        public bool IsHaveLinksById(AccountDBModel item)
+        {
+            if (_context.Trans.FirstOrDefault(i => i.AccountId == item.Id) is null)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

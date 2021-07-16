@@ -17,12 +17,12 @@ namespace FirstBlazor.Pages
             {
                 _model.Transaction = rep_trans.GetItemById(id);
 
-                if(_model.Transaction is null)
+                if (_model.Transaction is null)
                 {
                     CreateNewTransaction();
                 }
 
-                if(_model.Transaction.Lables is null)
+                if (_model.Transaction.Lables is null)
                 {
                     _model.Transaction.Lables = new();
                 }
@@ -45,19 +45,22 @@ namespace FirstBlazor.Pages
         }
         private void Save()
         {
-            _model.Transaction.Amount = Math.Abs(_model.Transaction.Amount);
-
-            if (_selectedTab == 1)
+            if (_model.Transaction.Amount != 0)
             {
-                _model.Transaction.Amount = -_model.Transaction.Amount;
-            }
+                _model.Transaction.Amount = Math.Abs(_model.Transaction.Amount);
 
-            if (_model.Transaction.Id == 0)
-            {
-                rep_trans.AddItem(_model.Transaction);
-            }
+                if (_selectedTab == 1)
+                {
+                    _model.Transaction.Amount = -_model.Transaction.Amount;
+                }
 
-            rep_trans.SaveChanges();
+                if (_model.Transaction.Id == 0)
+                {
+                    rep_trans.AddItem(_model.Transaction);
+                }
+
+                rep_trans.SaveChanges();
+            }
         }
         private void Add_RemoveSelectedLable(LableDBModel item)
         {
