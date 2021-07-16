@@ -32,10 +32,11 @@
                         _currDate = _item.Transaction.Date;
                     }
                     <div class="col-12 input-group">
-                        <span class=@getLineStyle(_item.Transaction)>@_item.AccountName</span>
+                        <span class=@getLineStyle(_item.Transaction)>@_item.LineText</span>
                         <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button" @onclick="() => OnDelete(_item.Transaction)"><i class="fa fa-edit"></i></button>
-                            <button class="btn btn-outline-secondary" type="button" @onclick="() => OnDelete(_item.Transaction)"><i class="fa fa-trash"></i></button>
+                            <span class=@getLineStyle(_item.Transaction)>@_item.Transaction.Amount.ToString("0.00")</span>
+                            <button class="btn btn-outline-secondary" type="button" @onclick="() => OnEdit(_item.Transaction)"><i class="fa fa-edit"></i></button>
+                            <button class="btn btn-outline-secondary" type="button" @onclick="() => OnRequestDelete(_item)"><i class="fa fa-trash"></i></button>
                         </div>
                     </div>
                 </div>
@@ -44,21 +45,71 @@
         </div>
     </div>
 </div>
+@if (ShowPopupDelete)
+{
+    <div class="modal" tabindex="-1" style="display:block" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title">Удалить</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="OnHidePopupDelate">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h6><b>Вы действительно хотите удалить операцию:</b></h6>
+                    <h6>@_toDeleteItem.LineText, @_toDeleteItem.Transaction.Amount.ToString("0.00") ?</h6>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" @onclick="OnDelete">Удалить</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="OnHidePopupDelate">Отмена</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 @code
 {
     private TransactionListPageModel _model = new();    //We do initialization here Initialized()
 
     private DateTime _currDate = DateTime.MinValue;
+    bool ShowPopupDelete = false;
+    private TransactionListModel _toDeleteItem;
 
     protected override void OnInitialized()
     {
         Initialized();
     }
 
-    private void OnDelete(TranDBModel item)
+    private void OnShowPopupDelate()
     {
+        ShowPopupDelete = true;
     }
+    private void OnHidePopupDelate()
+    {
+        _toDeleteItem = null;
+
+        ShowPopupDelete = false;
+    }
+    private void OnDelete()
+    {
+        if (_toDeleteItem is not null)
+        {
+            DeleteTran(_toDeleteItem.Transaction);
+        }
+    }
+    private void OnRequestDelete(TransactionListModel item)
+    {
+        _toDeleteItem = item;
+
+        OnShowPopupDelate();
+    }
+    private void OnEdit(TranDBModel item)
+    {
+        NavManager.NavigateTo("/transaction/" + item.Id);
+    }
+
     private string getLineStyle(TranDBModel item)
     {
         if (item.Amount < 0)

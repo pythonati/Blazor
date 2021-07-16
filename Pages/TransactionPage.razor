@@ -1,4 +1,6 @@
 ﻿@page "/transaction";
+@page "/transaction/{id:int}";
+
 @inject FirstBlazor.Interfaces.IRepositoryU1<TranDBModel> rep_trans;
 @inject FirstBlazor.Interfaces.IRepositoryU1<LableDBModel> rep_lable;
 @inject FirstBlazor.Interfaces.IRepositoryU1<CategoryDBModel> rep_category;
@@ -137,6 +139,9 @@
 
 @code
 {
+    [Parameter]
+    public int id { get; set; }
+
     bool ShowPopupLables = false;
     HashSet<LableDBModel> _selectedLables = new();
 

@@ -18,11 +18,18 @@ namespace FirstBlazor.Pages
                 TransactionListModel model = new()
                 {
                     Transaction = item,
-                    AccountName = accounts?.FirstOrDefault(i => i.Id == item.AccountId)?.Name
+                    LineText = accounts?.FirstOrDefault(i => i.Id == item.AccountId)?.Name + ": " + item.Note
                 };
 
                 _model.Transactions.Add(model);
             }
+        }
+        private void DeleteTran(TranDBModel item)
+        {
+            rep_trans.RemoveItem(item);
+            rep_trans.SaveChanges();
+
+            NavManager.NavigateTo(NavManager.Uri, forceLoad: true);
         }
     }
 }

@@ -45,6 +45,22 @@ namespace FirstBlazor.Data.Repository
         {
             return _context.Trans;
         }
+        public bool RemoveItem(TranDBModel item)
+        {
+            try
+            {
+                _context.Trans.Remove(item);
 
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public TranDBModel GetItemById(int id)
+        {
+            return _context.Trans.FirstOrDefaultAsync(i => i.Id == id).Result;
+        }
     }
 }

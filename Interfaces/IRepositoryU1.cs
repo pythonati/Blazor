@@ -22,5 +22,9 @@ namespace FirstBlazor.Interfaces
         {
             throw new NullReferenceException();
         }
+        T GetItemById(int id)
+        {
+            throw new NullReferenceException();
+        }
     }
 }

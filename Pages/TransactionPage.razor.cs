@@ -1,12 +1,34 @@
 ﻿using FirstBlazor.Interfaces;
 using FirstBlazor.Models.DB;
 using FirstBlazor.OtherClasses;
+using System;
 
 namespace FirstBlazor.Pages
 {
     public partial class TransactionPage
     {
         private void Initialized()
+        {
+            if (id == 0)
+            {
+                CreateNewTransaction();
+            }
+            else
+            {
+                _model.Transaction = rep_trans.GetItemById(id);
+
+                if(_model.Transaction is null)
+                {
+                    CreateNewTransaction();
+                }
+
+                if(_model.Transaction.Lables is null)
+                {
+                    _model.Transaction.Lables = new();
+                }
+            }
+        }
+        private void CreateNewTransaction()
         {
             AccountDBModel account = rep_account.GetFirstItem();
             CategoryDBModel category = rep_category.GetFirstItem();
@@ -23,7 +45,14 @@ namespace FirstBlazor.Pages
         }
         private void Save()
         {
-            if(_model.Transaction.Id == 0)
+            _model.Transaction.Amount = Math.Abs(_model.Transaction.Amount);
+
+            if (_selectedTab == 1)
+            {
+                _model.Transaction.Amount = -_model.Transaction.Amount;
+            }
+
+            if (_model.Transaction.Id == 0)
             {
                 rep_trans.AddItem(_model.Transaction);
             }
