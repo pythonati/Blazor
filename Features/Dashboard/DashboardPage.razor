@@ -1,0 +1,33 @@
+﻿@page "/dashboard"
+@inject FirstBlazor.Interfaces.IRepositoryU1<TranDBModel> rep_trans;
+
+<div>
+    <Chart Data="_chartData" Type="bar" />
+</div>
+
+@code{
+    private ChartData _chartData;
+
+    protected override void OnInitialized()
+    {
+        CreateChartData();
+    }
+
+    private void CreateChartData()
+    {
+        _chartData = new()
+        {
+            Labels = new() { "Completed Repairs", "Outstanding Repairs" },
+            Datasets = new()
+            {
+                    new DataSet
+                    {
+                        Label = "Completed Repairs",
+                        Data = new() { 10, 20 },
+                        BackgroundColor = new() { "rgba(63, 191, 63, 0.5)", "rgba(54, 162, 235, 0.2)" },
+                        BorderColor = new() { "rgba(51, 153, 51, 0.70)", "rgba(54, 162, 235, 1)" }
+                    }
+                }
+        };
+    }
+}

@@ -14,7 +14,7 @@
         <div class="col-8 btn-group btn-group-sm">
             <button type="button" class="btn btn-ati-btn-light-disable">Расход/Доход</button>
             <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnTranList">Записи</button>
-            <button type="button" class="btn btn-ati-btn-light-action">Анализ</button>
+            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnChart">Анализ</button>
             <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnCategory">Категории</button>
             <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnAccounts">Счета</button>
             <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnLables">Метки</button>
@@ -207,5 +207,9 @@
     private void OnLables()
     {
         NavManager.NavigateTo("/lable");
+    }
+    private void OnChart()
+    {
+        NavManager.NavigateTo("/dashboard");
     }
 }
