@@ -1,0 +1,15 @@
+﻿@page "/chart1";
+@inject FirstBlazor.Interfaces.IRepositoryU1<TranDBModel> rep_trans;
+
+<div>
+    <Chart Data="_chartData" Type="bar" />
+</div>
+
+@code {
+    private ChartData _chartData;
+
+    protected override void OnInitialized()
+    {
+        Initialized();
+    }
+}
