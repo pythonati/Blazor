@@ -2,6 +2,7 @@ using FirstBlazor.Data;
 using FirstBlazor.Data.Repository;
 using FirstBlazor.Interfaces;
 using FirstBlazor.Models.DB;
+using FirstBlazor.Models.DB.View;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -38,6 +39,8 @@ namespace FirstBlazor
             services.AddScoped<IRepositoryU1<AccountDBModel>, SQLServerAccount>();
             services.AddScoped<IRepositoryU1<CategoryDBModel>, SQLServerCategory>();
             services.AddScoped<IRepositoryU1<LableDBModel>, SQLServerLable>();
+
+            services.AddScoped<IRepositoryU2<Chart1DBModel>, SQLServerChart1>();
 
             services.AddSingleton<WeatherForecastService>();
         }

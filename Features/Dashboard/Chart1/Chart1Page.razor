@@ -1,8 +1,31 @@
 ﻿@page "/chart1";
-@inject FirstBlazor.Interfaces.IRepositoryU1<TranDBModel> rep_trans;
+@inject FirstBlazor.Interfaces.IRepositoryU2<Chart1DBModel> rep_chart
+@inject NavigationManager NavManager;
 
-<div>
-    <Chart Data="_chartData" Type="bar" />
+
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+        </div>
+        <div class="col-8 btn-group btn-group-sm">
+            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnTran">Расход/Доход</button>
+            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnTranList">Записи</button>
+            <button type="button" class="btn btn-ati-btn-light-disable">Анализ</button>
+            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnCategory">Категории</button>
+            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnAccounts">Счета</button>
+            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnLables">Метки</button>
+        </div>
+    </div>
+    <div class="row bcolor-ati-whitesmoke">
+        <div class="col-4">
+            <p>10000</p>
+        </div>
+        <div class="col-8">
+            <br>
+            <Chart Data="_chartData" Type="bar" />
+            <br>
+        </div>
+    </div>
 </div>
 
 @code {
@@ -11,5 +34,26 @@
     protected override void OnInitialized()
     {
         Initialized();
+    }
+
+    private void OnTran()
+    {
+        NavManager.NavigateTo("/transaction");
+    }
+    private void OnTranList()
+    {
+        NavManager.NavigateTo("/transaction_list");
+    }
+    private void OnAccounts()
+    {
+        NavManager.NavigateTo("/account");
+    }
+    private void OnCategory()
+    {
+        NavManager.NavigateTo("/category");
+    }
+    private void OnLables()
+    {
+        NavManager.NavigateTo("/lable");
     }
 }

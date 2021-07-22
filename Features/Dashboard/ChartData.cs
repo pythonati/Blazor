@@ -14,7 +14,7 @@ namespace FirstBlazor.Features.Dashboard
     public class DataSet
     {
         public string Label { get; set; }
-        public List<int> Data { get; set; } = new();
+        public List<double> Data { get; set; } = new();
         public List<string> BackgroundColor { get; set; } = new();
         public List<string> BorderColor { get; set; } = new();
         public int BorderWidth { get; set; }

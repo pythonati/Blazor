@@ -1,7 +1,5 @@
-﻿using System;
+﻿using FirstBlazor.Models.DB.View;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FirstBlazor.Features.Dashboard.Chart1
 {
@@ -11,19 +9,40 @@ namespace FirstBlazor.Features.Dashboard.Chart1
         {
             CreateChartData();
         }
+        private IEnumerable<Chart1DBModel> getData()
+        {
+            var _params = new Dictionary<string, string>(4);
+
+            _params.Add("dateFrom", "2021-07-01");
+            _params.Add("dateTo", "2022-07-01");
+            _params.Add("accountTypes", null);
+            _params.Add("categoryTypes", null);
+
+            return rep_chart.Items(_params);
+        }
         private void CreateChartData()
         {
+            List<string> _lables = new();
+            List<double> _data = new();
+
+            foreach(var item in getData())
+            {
+                _lables.Add(item.CategoryName);
+                _data.Add(-item.Amount);
+            }
+
             _chartData = new()
             {
-                Labels = new() { "Completed Repairs", "Outstanding Repairs" },
+                Labels = _lables,
                 Datasets = new()
                 {
                     new DataSet
                     {
-                        Label = "Completed Repairs",
-                        Data = new() { 10, 20 },
-                        BackgroundColor = new() { "rgba(63, 191, 63, 0.5)", "rgba(54, 162, 235, 0.2)" },
-                        BorderColor = new() { "rgba(51, 153, 51, 0.70)", "rgba(54, 162, 235, 1)" }
+                        Label = "",
+                        Data = _data,
+                        BackgroundColor = new() { "orange" },
+                        BorderColor = new() { "orange" },
+                        BorderWidth = 1
                     }
                 }
             };

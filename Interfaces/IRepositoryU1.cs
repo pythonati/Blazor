@@ -8,27 +8,27 @@ namespace FirstBlazor.Interfaces
         bool AddItem(T item);
         IEnumerable<T> Items()
         {
-            throw new NullReferenceException();
+            throw new NotImplementedException();
         }
         bool SaveChanges()
         {
-            throw new NullReferenceException();
+            throw new NotImplementedException();
         }
         bool RemoveItem(T item)
         {
-            throw new NullReferenceException();
+            throw new NotImplementedException();
         }
         T GetFirstItem()
         {
-            throw new NullReferenceException();
+            throw new NotImplementedException();
         }
         T GetItemById(int id)
         {
-            throw new NullReferenceException();
+            throw new NotImplementedException();
         }
         bool IsHaveLinksById(T item)
         {
-            throw new NullReferenceException();
+            throw new NotImplementedException();
         }
     }
 }
