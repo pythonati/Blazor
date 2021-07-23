@@ -1,0 +1,176 @@
+﻿@page "/chart2";
+@inject FirstBlazor.Interfaces.IRepositoryU2<Chart1DBModel> rep_chart
+@inject FirstBlazor.Interfaces.IRepositoryU1<AccountDBModel> rep_account;
+@inject FirstBlazor.Interfaces.IRepositoryU1<CategoryDBModel> rep_category;
+@inject NavigationManager NavManager;
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+        </div>
+        <div class="col-8 btn-group btn-group-sm">
+            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnTran">Расход/Доход</button>
+            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnTranList">Записи</button>
+            <button type="button" class="btn btn-ati-btn-light-disable">Анализ</button>
+            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnCategory">Категории</button>
+            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnAccounts">Счета</button>
+            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnLables">Метки</button>
+        </div>
+    </div>
+    <div class="row bcolor-ati-whitesmoke">
+        <div class="col-4">
+            <p>10000</p>
+        </div>
+        <div class="col-8">
+            <br>
+            <div class="col-12 input-group">
+                <div class="input-group-append">
+                    <input type="date" class="form-control text-right" id="date_from" @bind="_model.Params.DateFrom">
+                    <input type="date" class="form-control text-right" id="date_to" @bind="_model.Params.DateTo">
+
+                    &nbsp;
+                    <button class="btn btn-secondary -primary" @onclick="OnShowPopupAccounts">Счета</button>
+                    &nbsp;
+                    <button class="btn btn-secondary" @onclick="OnShowPopupCategory">Категории</button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <button class="btn btn-primary" @onclick="OnApplyFilter">Применить</button>
+                </div>
+            </div>
+            <Chart Data="_chartData" Type="bar" />
+            <br>
+        </div>
+    </div>
+</div>
+@if (_showPopupCategory)
+{
+    <div class="modal" tabindex="-1" style="display:block" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title">Категории</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="OnHidePopupCategory">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @foreach (var item in rep_category.Items())
+                    {
+                        <div class="form-check">
+                            @if (_model.Params.SelectedCategory.FirstOrDefault(i => i.Id == item.Id) is not null)
+                            {
+                                <input type="checkbox" class="form-check-input" id="@item.Id" checked @onclick="() => OnSelectedCategory(item)">
+                            }
+                            else
+                            {
+                                <input type="checkbox" class="form-check-input" id="@item.Id" @onclick="() => OnSelectedCategory(item)">
+                            }
+                            <label class="form-check-label" for="@item.Id">@item.Name</label>
+                        </div>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="OnHidePopupCategory">Отмена</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@if (_showPopupAccounts)
+{
+    <div class="modal" tabindex="-1" style="display:block" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title">Категории</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="OnHidePopupAccounts">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @foreach (var item in rep_account.Items())
+                    {
+                        <div class="form-check">
+                            @if (_model.Params.SelectedAccounts.FirstOrDefault(i => i.Id == item.Id) is not null)
+                            {
+                                <input type="checkbox" class="form-check-input" id="@item.Id" checked @onclick="() => OnSelectedAccounts(item)">
+                            }
+                            else
+                            {
+                                <input type="checkbox" class="form-check-input" id="@item.Id" @onclick="() => OnSelectedAccounts(item)">
+                            }
+                            <label class="form-check-label" for="@item.Id">@item.Name</label>
+                        </div>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="OnHidePopupAccounts">Отмена</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private Chart2PageModel _model = Chart2PageModel.GetInstance();
+    private ChartData _chartData;
+
+    bool _showPopupAccounts = false;
+    bool _showPopupCategory = false;
+
+    protected override void OnInitialized()
+    {
+        Initialized();
+    }
+    private void OnShowPopupCategory()
+    {
+        _showPopupCategory = true;
+    }
+    private void OnHidePopupCategory()
+    {
+        _showPopupCategory = false;
+    }
+    private void OnSelectedCategory(CategoryDBModel item)
+    {
+        Add_RemoveSelectedCategory(item);
+    }
+
+    private void OnShowPopupAccounts()
+    {
+        _showPopupAccounts = true;
+    }
+    private void OnHidePopupAccounts()
+    {
+        _showPopupAccounts = false;
+    }
+    private void OnSelectedAccounts(AccountDBModel item)
+    {
+        Add_RemoveSelectedAccount(item);
+    }
+
+    private void OnApplyFilter()
+    {
+        NavManager.NavigateTo(NavManager.Uri, forceLoad: true);
+    }
+
+    private void OnTran()
+    {
+        NavManager.NavigateTo("/transaction");
+    }
+    private void OnTranList()
+    {
+        NavManager.NavigateTo("/transaction_list");
+    }
+    private void OnAccounts()
+    {
+        NavManager.NavigateTo("/account");
+    }
+    private void OnCategory()
+    {
+        NavManager.NavigateTo("/category");
+    }
+    private void OnLables()
+    {
+        NavManager.NavigateTo("/lable");
+    }
+}

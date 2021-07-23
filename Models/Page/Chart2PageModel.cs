@@ -4,13 +4,13 @@ using System.Collections.Generic;
 
 namespace FirstBlazor.Models.Page
 {
-    public class Chart1PageModel
+    public class Chart2PageModel
     {
-        private static Chart1PageModel _this;
+        private static Chart2PageModel _this;
         public ParamsClass Params { get; set; } = new();
 
-        private Chart1PageModel(){}
-        public static Chart1PageModel GetInstance()
+        private Chart2PageModel() { }
+        public static Chart2PageModel GetInstance()
         {
             if (_this is null)
             {
@@ -26,6 +26,7 @@ namespace FirstBlazor.Models.Page
             public DateTime DateTo { get; set; } = DateTime.Now;
             public HashSet<AccountDBModel> SelectedAccounts { get; set; } = new();
             public HashSet<CategoryDBModel> SelectedCategory { get; set; } = new();
+            public HashSet<LableDBModel> SelectedLabels { get; set; } = new();
         }
     }
 }
