@@ -65,7 +65,8 @@
                     }
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="OnHidePopupCategory">Отмена</button>
+                    <button type="button" class="btn btn-light mr-auto" @onclick="OnResetSelectedCategory">Сброс</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="OnHidePopupCategory">Закрыть</button>
                 </div>
             </div>
         </div>
@@ -99,7 +100,8 @@
                     }
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="OnHidePopupAccounts">Отмена</button>
+                    <button type="button" class="btn btn-light mr-auto" @onclick="OnResetSelectedAccounts">Сброс</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="OnHidePopupAccounts">Закрыть</button>
                 </div>
             </div>
         </div>
@@ -129,6 +131,12 @@
     {
         Add_RemoveSelectedCategory(item);
     }
+    private void OnResetSelectedCategory()
+    {
+        _model.Params.SelectedCategory.Clear();
+
+        _showPopupCategory = true;
+    }
 
     private void OnShowPopupAccounts()
     {
@@ -141,6 +149,12 @@
     private void OnSelectedAccounts(AccountDBModel item)
     {
         Add_RemoveSelectedAccount(item);
+    }
+    private void OnResetSelectedAccounts()
+    {
+        _model.Params.SelectedAccounts.Clear();
+
+        _showPopupAccounts = true;
     }
 
     private void OnApplyFilter()

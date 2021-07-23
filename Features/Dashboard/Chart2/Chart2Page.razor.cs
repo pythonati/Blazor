@@ -88,5 +88,18 @@ namespace FirstBlazor.Features.Dashboard.Chart2
                 _model.Params.SelectedAccounts.Add(item);
             }
         }
+        private void Add_RemoveSelectedLabel(LableDBModel item)
+        {
+            LableDBModel value = _model.Params.SelectedLabels.FirstOrDefault(i => i.Id == item.Id);
+
+            if (value is not null)
+            {
+                _model.Params.SelectedLabels.Remove(value);
+            }
+            else
+            {
+                _model.Params.SelectedLabels.Add(item);
+            }
+        }
     }
 }

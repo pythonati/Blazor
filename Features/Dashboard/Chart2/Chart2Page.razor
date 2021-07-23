@@ -2,6 +2,7 @@
 @inject FirstBlazor.Interfaces.IRepositoryU2<Chart1DBModel> rep_chart
 @inject FirstBlazor.Interfaces.IRepositoryU1<AccountDBModel> rep_account;
 @inject FirstBlazor.Interfaces.IRepositoryU1<CategoryDBModel> rep_category;
+@inject FirstBlazor.Interfaces.IRepositoryU1<LableDBModel> rep_lable;
 @inject NavigationManager NavManager;
 
 
@@ -33,6 +34,8 @@
                     <button class="btn btn-secondary -primary" @onclick="OnShowPopupAccounts">Счета</button>
                     &nbsp;
                     <button class="btn btn-secondary" @onclick="OnShowPopupCategory">Категории</button>
+                    &nbsp;
+                    <button class="btn btn-secondary" @onclick="OnShowPopupLabels">Метки</button>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <button class="btn btn-primary" @onclick="OnApplyFilter">Применить</button>
                 </div>
@@ -70,7 +73,8 @@
                     }
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="OnHidePopupCategory">Отмена</button>
+                    <button type="button" class="btn btn-light mr-auto" @onclick="OnResetSelectedCategory">Сброс</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="OnHidePopupCategory">Закрыть</button>
                 </div>
             </div>
         </div>
@@ -104,7 +108,43 @@
                     }
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="OnHidePopupAccounts">Отмена</button>
+                    <button type="button" class="btn btn-light mr-auto" @onclick="OnResetSelectedAccounts">Сброс</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="OnHidePopupAccounts">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@if (_showPopupLabels)
+{
+    <div class="modal" tabindex="-1" style="display:block" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title">Категории</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="OnHidePopupAccounts">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @foreach (var item in rep_lable.Items())
+                    {
+                        <div class="form-check">
+                            @if (_model.Params.SelectedLabels.FirstOrDefault(i => i.Id == item.Id) is not null)
+                            {
+                                <input type="checkbox" class="form-check-input" id="@item.Id" checked @onclick="() => OnSelectedLabels(item)">
+                            }
+                            else
+                            {
+                                <input type="checkbox" class="form-check-input" id="@item.Id" @onclick="() => OnSelectedLabels(item)">
+                            }
+                            <label class="form-check-label" for="@item.Id">@item.Name</label>
+                        </div>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light mr-auto" @onclick="OnResetSelectedLabels">Сброс</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="OnHidePopupLabels">Закрыть</button>
                 </div>
             </div>
         </div>
@@ -117,11 +157,13 @@
 
     bool _showPopupAccounts = false;
     bool _showPopupCategory = false;
+    bool _showPopupLabels = false;
 
     protected override void OnInitialized()
     {
         Initialized();
     }
+
     private void OnShowPopupCategory()
     {
         _showPopupCategory = true;
@@ -133,6 +175,12 @@
     private void OnSelectedCategory(CategoryDBModel item)
     {
         Add_RemoveSelectedCategory(item);
+    }
+    private void OnResetSelectedCategory()
+    {
+        _model.Params.SelectedCategory.Clear();
+
+        _showPopupCategory = true;
     }
 
     private void OnShowPopupAccounts()
@@ -146,6 +194,31 @@
     private void OnSelectedAccounts(AccountDBModel item)
     {
         Add_RemoveSelectedAccount(item);
+    }
+    private void OnResetSelectedAccounts()
+    {
+        _model.Params.SelectedAccounts.Clear();
+
+        _showPopupAccounts = true;
+    }
+
+    private void OnShowPopupLabels()
+    {
+        _showPopupLabels = true;
+    }
+    private void OnHidePopupLabels()
+    {
+        _showPopupLabels = false;
+    }
+    private void OnSelectedLabels(LableDBModel item)
+    {
+        Add_RemoveSelectedLabel(item);
+    }
+    private void OnResetSelectedLabels()
+    {
+        _model.Params.SelectedLabels.Clear();
+
+        _showPopupLabels = true;
     }
 
     private void OnApplyFilter()
