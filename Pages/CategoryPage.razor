@@ -7,12 +7,7 @@
         <div class="col-4">
         </div>
         <div class="col-8 btn-group btn-group-sm">
-            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnTran">Расход/Доход</button>
-            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnTranList">Записи</button>
-            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnChart">Анализ</button>
-            <button type="button" class="btn btn-ati-btn-light-disable">Категории</button>
-            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnAccounts">Счета</button>
-            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnLables">Метки</button>
+            <BaseMenu ActionMenu="4" />
         </div>
     </div>
     <div class="row bcolor-ati-whitesmoke">
@@ -96,25 +91,5 @@
     private void OnHidePopupDelate()
     {
         ShowPopupDelete = false;
-    }
-    private void OnTranList()
-    {
-        NavManager.NavigateTo("/transaction_list");
-    }
-    private void OnTran()
-    {
-        NavManager.NavigateTo("/transaction");
-    }
-    private void OnAccounts()
-    {
-        NavManager.NavigateTo("/account");
-    }
-    private void OnLables()
-    {
-        NavManager.NavigateTo("/lable");
-    }
-    private void OnChart()
-    {
-        NavManager.NavigateTo("/chart1");
     }
 }

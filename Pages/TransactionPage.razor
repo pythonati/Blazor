@@ -5,19 +5,13 @@
 @inject FirstBlazor.Interfaces.IRepositoryU1<LableDBModel> rep_lable;
 @inject FirstBlazor.Interfaces.IRepositoryU1<CategoryDBModel> rep_category;
 @inject FirstBlazor.Interfaces.IRepositoryU1<AccountDBModel> rep_account;
-@inject NavigationManager NavManager;
 
 <div class="container">
     <div class="row">
         <div class="col-4">
         </div>
         <div class="col-8 btn-group btn-group-sm">
-            <button type="button" class="btn btn-ati-btn-light-disable">Расход/Доход</button>
-            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnTranList">Записи</button>
-            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnChart">Анализ</button>
-            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnCategory">Категории</button>
-            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnAccounts">Счета</button>
-            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnLables">Метки</button>
+            <BaseMenu ActionMenu="1" />
         </div>
     </div>
     <div class="row bcolor-ati-whitesmoke">
@@ -190,25 +184,5 @@
     private void OnRemoveLable(TransLablesModel item)
     {
         RemoveLable(item);
-    }
-    private void OnTranList()
-    {
-        NavManager.NavigateTo("/transaction_list");
-    }
-    private void OnAccounts()
-    {
-        NavManager.NavigateTo("/account");
-    }
-    private void OnCategory()
-    {
-        NavManager.NavigateTo("/category");
-    }
-    private void OnLables()
-    {
-        NavManager.NavigateTo("/lable");
-    }
-    private void OnChart()
-    {
-        NavManager.NavigateTo("/chart1");
     }
 }

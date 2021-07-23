@@ -1,11 +1,118 @@
-﻿
-<button type="button" class="btn btn-ati-btn-light-disable">Расход/Доход</button>
-@*<button type="button" class="btn btn-ati-btn-light-action" @onclick="OnTranList">Записи</button>
-<button type="button" class="btn btn-ati-btn-light-action" @onclick="OnChart">Анализ</button>
-<button type="button" class="btn btn-ati-btn-light-action" @onclick="OnCategory">Категории</button>
-<button type="button" class="btn btn-ati-btn-light-action" @onclick="OnAccounts">Счета</button>
-<button type="button" class="btn btn-ati-btn-light-action" @onclick="OnLables">Метки</button>*@
+﻿@inject NavigationManager NavManager;
+
+@if (ActionMenu == 1)
+{
+    <button type="button" class="btn btn-ati-btn-light-disable">Расход/Доход</button>
+}
+else
+{
+    <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnTran">Расход/Доход</button>
+}
+@if (ActionMenu == 2)
+{
+    <button type="button" class="btn btn-ati-btn-light-disable">Записи</button>
+}
+else
+{
+    <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnTranList">Записи</button>
+}
+@if (ActionMenu == 3)
+{
+    <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnShowPopupReports">Анализ</button>
+}
+else
+{
+    <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnShowPopupReports">Анализ</button>
+}
+@if (ActionMenu == 4)
+{
+    <button type="button" class="btn btn-ati-btn-light-disable">Категории</button>
+}
+else
+{
+    <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnCategory">Категории</button>
+}
+@if (ActionMenu == 5)
+{
+    <button type="button" class="btn btn-ati-btn-light-disable">Счета</button>
+}
+else
+{
+    <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnAccounts">Счета</button>
+}
+@if (ActionMenu == 6)
+{
+    <button type="button" class="btn btn-ati-btn-light-disable">Метки</button>
+}
+else
+{
+    <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnLables">Метки</button>
+}
+@if (ShowPopupReports)
+{
+    <div class="modal" tabindex="-1" style="display:block" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title">Статистика</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="OnHidePopupReports">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div><button type="button" class="btn btn-ati-btn-light-action btn-block" @onclick="OnChart1">Первый отчет</button></div>
+                    <br>
+                    <div><button type="button" class="btn btn-ati-btn-light-action btn-block" @onclick="OnChart2">Второй отчет</button></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="OnHidePopupReports">Отмена</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 @code {
     [Parameter] public int ActionMenu { get; set; }
+
+    bool ShowPopupReports = false;
+
+    private void OnShowPopupReports()
+    {
+        ShowPopupReports = true;
+    }
+    private void OnHidePopupReports()
+    {
+        ShowPopupReports = false;
+    }
+
+    private void OnTran()
+    {
+        NavManager.NavigateTo("/transaction");
+    }
+    private void OnTranList()
+    {
+        NavManager.NavigateTo("/transaction_list");
+    }
+    private void OnAccounts()
+    {
+        NavManager.NavigateTo("/account");
+    }
+    private void OnCategory()
+    {
+        NavManager.NavigateTo("/category");
+    }
+    private void OnLables()
+    {
+        NavManager.NavigateTo("/lable");
+    }
+
+    private void OnChart1()
+    {
+        NavManager.NavigateTo("/chart1");
+    }
+    private void OnChart2()
+    {
+        NavManager.NavigateTo("/chart2");
+    }
 }

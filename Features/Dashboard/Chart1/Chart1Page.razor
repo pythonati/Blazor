@@ -10,12 +10,7 @@
         <div class="col-4">
         </div>
         <div class="col-8 btn-group btn-group-sm">
-            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnTran">Расход/Доход</button>
-            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnTranList">Записи</button>
-            <button type="button" class="btn btn-ati-btn-light-disable">Анализ</button>
-            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnCategory">Категории</button>
-            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnAccounts">Счета</button>
-            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnLables">Метки</button>
+            <BaseMenu ActionMenu="3" />
         </div>
     </div>
     <div class="row bcolor-ati-whitesmoke">
@@ -151,26 +146,5 @@
     private void OnApplyFilter()
     {
         NavManager.NavigateTo(NavManager.Uri, forceLoad: true);
-    }
-
-    private void OnTran()
-    {
-        NavManager.NavigateTo("/transaction");
-    }
-    private void OnTranList()
-    {
-        NavManager.NavigateTo("/transaction_list");
-    }
-    private void OnAccounts()
-    {
-        NavManager.NavigateTo("/account");
-    }
-    private void OnCategory()
-    {
-        NavManager.NavigateTo("/category");
-    }
-    private void OnLables()
-    {
-        NavManager.NavigateTo("/lable");
     }
 }
