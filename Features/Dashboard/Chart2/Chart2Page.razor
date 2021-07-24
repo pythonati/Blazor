@@ -1,5 +1,5 @@
 ﻿@page "/chart2";
-@inject FirstBlazor.Interfaces.IRepositoryU2<Chart1DBModel> rep_chart
+@inject FirstBlazor.Interfaces.IRepositoryU2<Chart2DBModel> rep_chart
 @inject FirstBlazor.Interfaces.IRepositoryU1<AccountDBModel> rep_account;
 @inject FirstBlazor.Interfaces.IRepositoryU1<CategoryDBModel> rep_category;
 @inject FirstBlazor.Interfaces.IRepositoryU1<LableDBModel> rep_lable;
@@ -11,12 +11,7 @@
         <div class="col-4">
         </div>
         <div class="col-8 btn-group btn-group-sm">
-            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnTran">Расход/Доход</button>
-            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnTranList">Записи</button>
-            <button type="button" class="btn btn-ati-btn-light-disable">Анализ</button>
-            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnCategory">Категории</button>
-            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnAccounts">Счета</button>
-            <button type="button" class="btn btn-ati-btn-light-action" @onclick="OnLables">Метки</button>
+            <BaseMenu ActionMenu="3" />
         </div>
     </div>
     <div class="row bcolor-ati-whitesmoke">

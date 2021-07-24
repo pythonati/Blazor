@@ -1,7 +1,7 @@
 ﻿using FirstBlazor.Interfaces;
 using FirstBlazor.Models.DB;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FirstBlazor.Data.Repository
 {
@@ -58,9 +58,21 @@ namespace FirstBlazor.Data.Repository
                 return false;
             }
         }
-        public TranDBModel GetItemById(int id)
+        public void Explicit_Loading(TranDBModel item)
+        {
+            _context.Entry(item).Collection("Lables").Load();
+
+            if (item.Lables is not null)
+            {
+                foreach(var lable in item.Lables)
+                {
+                    lable.Lable = _context.Lables?.FirstOrDefault(i => i.Id == lable.LableId) ?? new();
+                }
+            }
+        }
+/*        public TranDBModel GetItemById(int id)
         {
             return _context.Trans.FirstOrDefaultAsync(i => i.Id == id).Result;
-        }
+        }*/
     }
 }

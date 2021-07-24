@@ -11,10 +11,11 @@ namespace FirstBlazor.Features.Dashboard.Chart2
         {
             CreateChartData();
         }
-        private IEnumerable<Chart1DBModel> getData()
+        private IEnumerable<Chart2DBModel> GetData()
         {
             string accounts = "";
             string category = "";
+            string labels = "";
 
             foreach (var item in _model.Params.SelectedAccounts)
             {
@@ -26,40 +27,78 @@ namespace FirstBlazor.Features.Dashboard.Chart2
                 category += item.Id + ", ";
             }
 
-            var _params = new Dictionary<string, string>(4);
+            foreach (var item in _model.Params.SelectedLabels)
+            {
+                labels += item.Id + ", ";
+            }
 
-            _params.Add("dateFrom", _model.Params.DateFrom.ToString("yyyy-MM-dd"));
-            _params.Add("dateTo", _model.Params.DateTo.ToString("yyyy-MM-dd"));
-            _params.Add("accountTypes", accounts);
-            _params.Add("categoryTypes", category);
+            var _params = new Dictionary<string, string>()
+            {
+                { "dateFrom", _model.Params.DateFrom.ToString("yyyy-MM-dd") },
+                { "dateTo", _model.Params.DateTo.ToString("yyyy-MM-dd") },
+                { "accountTypes", accounts},
+                { "categoryTypes", category },
+                { "labelTypes", labels}
+            };
 
             return rep_chart.Items(_params);
         }
         private void CreateChartData()
         {
-            List<string> _lables = new();
-            List<double> _data = new();
+            HashSet<string> labels = new();
+            HashSet<int> categoryId = new();
 
-            foreach (var item in getData())
+            Dictionary<int, DataLabel> dataLabels = new();
+
+            List<Chart2DBModel> baseData = GetData()?.ToList() ?? new();
+
+            foreach (var item in baseData)
             {
-                _lables.Add(item.CategoryName);
-                _data.Add(-item.Amount);
+                labels.Add(item.CategoryName);
+
+                categoryId.Add(item.CategoryId);
             }
+
+            foreach (var item in baseData)
+            {
+                if(!dataLabels.ContainsKey(item.LabelId))
+                {
+                    DataLabel label = new()
+                    {
+                        Id = item.LabelId,
+                        Name=item.LabelName,
+                        Data = new()
+                    };
+
+                    foreach(var cid in categoryId)
+                    {
+                        label.Data.Add(cid, 0);
+                    }
+
+                    dataLabels.Add(item.LabelId, label);
+                };
+
+                dataLabels[item.LabelId].Data[item.CategoryId] = -item.Amount;
+            };
 
             _chartData = new()
             {
-                Labels = _lables,
+                Labels = labels.ToList(),
                 Datasets = new()
+            };
+
+            foreach (var item in dataLabels)
+            {
+                DataSet dataset = new()
                 {
-                    new DataSet
-                    {
-                        Label = "",
-                        Data = _data,
-                        BackgroundColor = new() { "orange" },
-                        BorderColor = new() { "orange" },
-                        BorderWidth = 1
-                    }
-                }
+                    Label = item.Value.Name,
+                    Data = item.Value.Data.Values.ToList(),
+                    BackgroundColor = new() { "orange" },
+                    BorderColor = new() { "orange" },
+                    BorderWidth = 1
+                };
+
+                _chartData.Datasets.Add(dataset);
             };
         }
         private void Add_RemoveSelectedCategory(CategoryDBModel item)
@@ -100,6 +139,13 @@ namespace FirstBlazor.Features.Dashboard.Chart2
             {
                 _model.Params.SelectedLabels.Add(item);
             }
+        }
+
+        private class DataLabel
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public Dictionary<int, double> Data { get; set; } = new();
         }
     }
 }

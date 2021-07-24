@@ -41,8 +41,7 @@ namespace FirstBlazor
             services.AddScoped<IRepositoryU1<LableDBModel>, SQLServerLable>();
 
             services.AddScoped<IRepositoryU2<Chart1DBModel>, SQLServerChart1>();
-
-            services.AddSingleton<WeatherForecastService>();
+            services.AddScoped<IRepositoryU2<Chart2DBModel>, SQLServerChart2>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

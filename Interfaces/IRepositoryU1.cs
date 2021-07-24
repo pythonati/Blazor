@@ -22,11 +22,15 @@ namespace FirstBlazor.Interfaces
         {
             throw new NotImplementedException();
         }
-        T GetItemById(int id)
+/*        T GetItemById(int id)
+        {
+            throw new NotImplementedException();
+        }*/
+        bool IsHaveLinksById(T item)
         {
             throw new NotImplementedException();
         }
-        bool IsHaveLinksById(T item)
+        void Explicit_Loading(T item)
         {
             throw new NotImplementedException();
         }

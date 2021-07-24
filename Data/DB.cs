@@ -19,6 +19,7 @@ namespace FirstBlazor.Data
             modelBuilder.Entity<TransLablesModel>().HasKey(u => new { u.TransactionId, u.LableId });
 
             modelBuilder.Entity<Chart1DBModel>().HasNoKey().ToView(null);
+            modelBuilder.Entity<Chart2DBModel>().HasNoKey().ToView(null);
         }
     }
 }

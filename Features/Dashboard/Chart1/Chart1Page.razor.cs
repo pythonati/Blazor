@@ -11,7 +11,7 @@ namespace FirstBlazor.Features.Dashboard.Chart1
         {
             CreateChartData();
         }
-        private IEnumerable<Chart1DBModel> getData()
+        private IEnumerable<Chart1DBModel> GetData()
         {
             string accounts = "";
             string category = "";
@@ -26,35 +26,38 @@ namespace FirstBlazor.Features.Dashboard.Chart1
                 category += item.Id + ", ";
             }
 
-            var _params = new Dictionary<string, string>(4);
-
-            _params.Add("dateFrom", _model.Params.DateFrom.ToString("yyyy-MM-dd"));
-            _params.Add("dateTo", _model.Params.DateTo.ToString("yyyy-MM-dd"));
-            _params.Add("accountTypes", accounts);
-            _params.Add("categoryTypes", category);
+            var _params = new Dictionary<string, string>()
+            {
+                {"dateFrom", _model.Params.DateFrom.ToString("yyyy-MM-dd") },
+                { "dateTo", _model.Params.DateTo.ToString("yyyy-MM-dd") },
+                { "accountTypes", accounts},
+                { "categoryTypes", category }
+            };
 
             return rep_chart.Items(_params);
         }
         private void CreateChartData()
         {
-            List<string> _lables = new();
-            List<double> _data = new();
+            List<string> labels = new();
+            List<double> data = new();
 
-            foreach(var item in getData())
+            List<Chart1DBModel> baseData = GetData()?.ToList() ?? new();
+
+            foreach (var item in baseData)
             {
-                _lables.Add(item.CategoryName);
-                _data.Add(-item.Amount);
+                labels.Add(item.CategoryName);
+                data.Add(-item.Amount);
             }
 
             _chartData = new()
             {
-                Labels = _lables,
+                Labels = labels,
                 Datasets = new()
                 {
                     new DataSet
                     {
                         Label = "",
-                        Data = _data,
+                        Data = data,
                         BackgroundColor = new() { "orange" },
                         BorderColor = new() { "orange" },
                         BorderWidth = 1

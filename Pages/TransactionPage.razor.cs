@@ -2,6 +2,7 @@
 using FirstBlazor.Models.DB;
 using FirstBlazor.OtherClasses;
 using System;
+using System.Linq;
 
 namespace FirstBlazor.Pages
 {
@@ -15,7 +16,9 @@ namespace FirstBlazor.Pages
             }
             else
             {
-                _model.Transaction = rep_trans.GetItemById(id);
+                _model.Transaction = rep_trans.Items()?.FirstOrDefault(i => i.Id == id);
+
+                rep_trans.Explicit_Loading(_model.Transaction);     //Догружаем связанные данные
 
                 if (_model.Transaction is null)
                 {
