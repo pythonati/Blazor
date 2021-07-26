@@ -1,6 +1,7 @@
 ﻿using FirstBlazor.Interfaces;
 using FirstBlazor.Models.DB;
 using FirstBlazor.OtherClasses;
+using FirstBlazor.OtherClasses.Enum;
 using System;
 using System.Linq;
 
@@ -38,6 +39,7 @@ namespace FirstBlazor.Pages
 
             _model.Transaction = new()
             {
+                TranType = _selectedTab == 1 ? (int)TransactionTypes.OUT: (int)TransactionTypes.IN,
                 AccountId = account?.Id ?? 0,
                 CategoryId = category?.Id ?? 0,
                 Amount = 0,
@@ -54,7 +56,11 @@ namespace FirstBlazor.Pages
 
                 if (_selectedTab == 1)
                 {
-                    _model.Transaction.Amount = -_model.Transaction.Amount;
+                    _model.Transaction.TranType = (int)TransactionTypes.OUT;
+                }
+                else if (_selectedTab == 2)
+                {
+                    _model.Transaction.TranType = (int)TransactionTypes.IN;
                 }
 
                 if (_model.Transaction.Id == 0)

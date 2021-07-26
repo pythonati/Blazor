@@ -1,7 +1,7 @@
 USE [HomeMoney]
 GO
 
-/****** Object:  StoredProcedure [dbo].[sp_Chart2]    Script Date: 2021-07-24 11:13:59 AM ******/
+/****** Object:  StoredProcedure [dbo].[sp_Chart2]    Script Date: 2021-07-26 1:08:32 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -11,7 +11,8 @@ GO
 
 
 
-CREATE OR ALTER   PROCEDURE [dbo].[sp_Chart2]
+
+CREATE OR ALTER     PROCEDURE [dbo].[sp_Chart2]
 	@dateFrom date = getdate,
 	@dateTo date = getdate,
 	@accountTypes varchar(max) = null,
@@ -44,7 +45,7 @@ AS
 				and
 				Date < dateadd(day, 1, @dateTo)
 				and
-				Amount < 0
+				TranType = 1
 				and
 				(
 					@accountTypes is null

@@ -107,14 +107,13 @@
 
     private string getLineStyle(TranDBModel item)
     {
-        if (item.Amount < 0)
+        if (item.TranType == (int)TransactionTypes.OUT)
         {
             return "form-control bcolor-ati-orange fcolor-ati-white";
         }
         else
         {
             return "form-control bcolor-ati-green fcolor-ati-white";
-
         }
     }
 }

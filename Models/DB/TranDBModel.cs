@@ -1,12 +1,18 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace FirstBlazor.Models.DB
 {
+    [Index(nameof(TranType))]
+    [Index(nameof(AccountId))]
+    [Index(nameof(CategoryId))]
     public class TranDBModel
     {
-        public int Id{ get; set; }
+        public int Id { get; set; }
+        [Required]
+        public int TranType { get; set; }
         [Required]
         public DateTime Date { get; set; }
         [Required]

@@ -46,7 +46,7 @@ namespace FirstBlazor.Features.Dashboard.Chart1
             foreach (var item in baseData)
             {
                 labels.Add(item.CategoryName);
-                data.Add(-item.Amount);
+                data.Add(item.Amount);
             }
 
             _chartData = new()

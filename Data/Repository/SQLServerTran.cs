@@ -70,9 +70,5 @@ namespace FirstBlazor.Data.Repository
                 }
             }
         }
-/*        public TranDBModel GetItemById(int id)
-        {
-            return _context.Trans.FirstOrDefaultAsync(i => i.Id == id).Result;
-        }*/
     }
 }

@@ -78,7 +78,7 @@ namespace FirstBlazor.Features.Dashboard.Chart2
                     dataLabels.Add(item.LabelId, label);
                 };
 
-                dataLabels[item.LabelId].Data[item.CategoryId] = -item.Amount;
+                dataLabels[item.LabelId].Data[item.CategoryId] = item.Amount;
             };
 
             _chartData = new()
