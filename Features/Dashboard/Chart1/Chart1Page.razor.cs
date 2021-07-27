@@ -18,12 +18,12 @@ namespace FirstBlazor.Features.Dashboard.Chart1
 
             foreach (var item in _model.Params.SelectedAccounts)
             {
-                accounts += item.Id + ", ";
+                accounts += "[" + item.Id + "]";
             }
 
             foreach (var item in _model.Params.SelectedCategory)
             {
-                category += item.Id + ", ";
+                category += "[" + item.Id + "]";
             }
 
             var _params = new Dictionary<string, string>()

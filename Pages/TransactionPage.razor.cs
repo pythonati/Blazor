@@ -19,11 +19,14 @@ namespace FirstBlazor.Pages
             {
                 _model.Transaction = rep_trans.Items()?.FirstOrDefault(i => i.Id == id);
 
-                rep_trans.Explicit_Loading(_model.Transaction);     //Догружаем связанные данные
-
                 if (_model.Transaction is null)
                 {
                     CreateNewTransaction();
+                }
+
+                if (_model.Transaction.Lables is null)
+                {
+                    rep_trans.Explicit_Loading(_model.Transaction);     //Догружаем связанные данные только один раз за сессию. Потому что дальше EF отслеживает все изменения сам
                 }
 
                 if (_model.Transaction.Lables is null)
@@ -39,7 +42,7 @@ namespace FirstBlazor.Pages
 
             _model.Transaction = new()
             {
-                TranType = _selectedTab == 1 ? (int)TransactionTypes.OUT: (int)TransactionTypes.IN,
+                TranType = _selectedTab == 1 ? (int)TransactionTypes.OUT : (int)TransactionTypes.IN,
                 AccountId = account?.Id ?? 0,
                 CategoryId = category?.Id ?? 0,
                 Amount = 0,

@@ -1,18 +1,14 @@
 USE [HomeMoney]
 GO
 
-/****** Object:  StoredProcedure [dbo].[sp_Chart2]    Script Date: 2021-07-26 1:08:32 PM ******/
+/****** Object:  StoredProcedure [dbo].[sp_Chart2]    Script Date: 2021-07-27 9:05:06 AM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
 
-
-
-
-
-CREATE OR ALTER     PROCEDURE [dbo].[sp_Chart2]
+CREATE OR ALTER       PROCEDURE [dbo].[sp_Chart2]
 	@dateFrom date = getdate,
 	@dateTo date = getdate,
 	@accountTypes varchar(max) = null,
@@ -52,7 +48,7 @@ AS
 					or
 					@accountTypes = ''
 					or
-					charindex(cast(t.AccountId as varchar) + ',', @accountTypes) > 0
+					charindex('[' + cast(t.AccountId as varchar) + ']', @accountTypes) > 0
 				)
 				and
 				(
@@ -60,7 +56,7 @@ AS
 					or
 					@categoryTypes = ''
 					or
-					charindex(cast(t.CategoryId as varchar) + ',', @categoryTypes) > 0
+					charindex('[' + cast(t.CategoryId as varchar) + ']', @categoryTypes) > 0
 				)
 				and
 				(
@@ -68,7 +64,7 @@ AS
 					or
 					@labelTypes = ''
 					or
-					charindex(cast(tl.LableId as varchar) + ',', @labelTypes) > 0
+					charindex('[' + cast(tl.LableId as varchar) + ']', @labelTypes) > 0
 				)
 		) tb
 	group by

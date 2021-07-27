@@ -19,17 +19,17 @@ namespace FirstBlazor.Features.Dashboard.Chart2
 
             foreach (var item in _model.Params.SelectedAccounts)
             {
-                accounts += item.Id + ", ";
+                accounts += "[" + item.Id + "]";
             }
 
             foreach (var item in _model.Params.SelectedCategory)
             {
-                category += item.Id + ", ";
+                category += "[" + item.Id + "]";
             }
 
             foreach (var item in _model.Params.SelectedLabels)
             {
-                labels += item.Id + ", ";
+                labels += "[" + item.Id + "]";
             }
 
             var _params = new Dictionary<string, string>()
@@ -61,16 +61,16 @@ namespace FirstBlazor.Features.Dashboard.Chart2
 
             foreach (var item in baseData)
             {
-                if(!dataLabels.ContainsKey(item.LabelId))
+                if (!dataLabels.ContainsKey(item.LabelId))
                 {
                     DataLabel label = new()
                     {
                         Id = item.LabelId,
-                        Name=item.LabelName,
+                        Name = item.LabelName,
                         Data = new()
                     };
 
-                    foreach(var cid in categoryId)
+                    foreach (var cid in categoryId)
                     {
                         label.Data.Add(cid, 0);
                     }

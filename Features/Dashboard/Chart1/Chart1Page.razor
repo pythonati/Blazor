@@ -19,13 +19,13 @@
         </div>
         <div class="col-8">
             <br>
-            <div class="col-12 input-group">
+            <div class="col-12 input-group input-group-sm">
                 <div class="input-group-append">
                     <input type="date" class="form-control text-right" id="date_from" @bind="_model.Params.DateFrom">
                     <input type="date" class="form-control text-right" id="date_to" @bind="_model.Params.DateTo">
 
                     &nbsp;
-                    <button class="btn btn-secondary -primary" @onclick="OnShowPopupAccounts">Счета</button>
+                    <button class="btn btn-secondary" @onclick="OnShowPopupAccounts">Счета</button>
                     &nbsp;
                     <button class="btn btn-secondary" @onclick="OnShowPopupCategory">Категории</button>
                     &nbsp;&nbsp;&nbsp;&nbsp;
