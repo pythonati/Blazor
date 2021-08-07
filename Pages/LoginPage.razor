@@ -1,5 +1,6 @@
 ﻿@page "/login";
-@inject NavigationManager NavManager;
+@inject NavigationManager navManager;
+@inject CurrentUser currentUser;
 
 <div class="container">
     <div class="row bcolor-ati-green">
@@ -17,10 +18,10 @@
             </div>
             <br />
             <span class="form-label fcolor-ati-white">Enter your email or login:</span>
-            <input type="text" class="form-control" id="login">
+            <input type="text" class="form-control" id="login" @bind="_model.Login">
             <br />
             <span class="form-label fcolor-ati-white py-2">Enter password:</span>
-            <input type="password" class="form-control" id="pass">
+            <input type="password" class="form-control" id="pass" @bind="_model.Password">
             <br />
             <button type="button" @onclick="OnLogin" class="@btnSave.setSelected(val: _selectedLogin).GetStyle">@btnSave.setSelected(val: _selectedLogin).GetText</button>
             <br />
@@ -30,6 +31,8 @@
 
 @code
 {
+    private LoginPageModel _model = new();
+
     private int _selectedLogin = 1;
 
     private SaveButton btnSave = new();

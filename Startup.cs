@@ -3,10 +3,9 @@ using FirstBlazor.Data.Repository;
 using FirstBlazor.Interfaces;
 using FirstBlazor.Models.DB;
 using FirstBlazor.Models.DB.View;
+using FirstBlazor.OtherClasses;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,6 +41,8 @@ namespace FirstBlazor
 
             services.AddScoped<IRepositoryU2<Chart1DBModel>, SQLServerChart1>();
             services.AddScoped<IRepositoryU2<Chart2DBModel>, SQLServerChart2>();
+
+            services.AddSingleton<CurrentUser>();   //Представляет текущего пользователя
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

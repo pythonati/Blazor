@@ -1,4 +1,7 @@
 ﻿using FirstBlazor.Interfaces;
+using System;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace FirstBlazor.Pages
 {
@@ -6,7 +9,25 @@ namespace FirstBlazor.Pages
     {
         private void Login()
         {
-            NavManager.NavigateTo("/transaction");
+            if (currentUser.Id > 0)
+            {
+                navManager.NavigateTo("/transaction");
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(_model.Login) && !string.IsNullOrEmpty(_model.Password))
+            {
+                var haspedPassword = ComputeHash(_model.Password, new SHA256CryptoServiceProvider());
+
+            }
+        }
+        private string ComputeHash(string input, HashAlgorithm algorithm)
+        {
+            Byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+
+            Byte[] hashedBytes = algorithm.ComputeHash(inputBytes);
+
+            return BitConverter.ToString(hashedBytes);
         }
         public class SaveButton : IText, IStyle
         {
