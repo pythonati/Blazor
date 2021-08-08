@@ -132,6 +132,8 @@ namespace FirstBlazor.Migrations
 
                     b.Property<string>("CategoryName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.ToTable("Chart1DBModel");
                 });
 
             modelBuilder.Entity("FirstBlazor.Models.DB.View.Chart2DBModel", b =>
@@ -150,6 +152,8 @@ namespace FirstBlazor.Migrations
 
                     b.Property<string>("LabelName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.ToTable("Chart2DBModel");
                 });
 
             modelBuilder.Entity("FirstBlazor.Models.DB.TransLablesModel", b =>

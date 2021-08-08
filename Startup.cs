@@ -43,6 +43,7 @@ namespace FirstBlazor
             services.AddScoped<IRepositoryU2<Chart2DBModel>, SQLServerChart2>();
 
             services.AddSingleton<CurrentUser>();   //Представляет текущего пользователя
+            services.AddScoped<IRepositoryU2<LoginDBModel>, SQLServerLogin>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

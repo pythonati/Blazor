@@ -18,8 +18,10 @@ namespace FirstBlazor.Data
         {
             modelBuilder.Entity<TransLablesModel>().HasKey(u => new { u.TransactionId, u.LableId });
 
-            modelBuilder.Entity<Chart1DBModel>().HasNoKey().ToView(null);
-            modelBuilder.Entity<Chart2DBModel>().HasNoKey().ToView(null);
+            modelBuilder.Entity<Chart1DBModel>().HasNoKey().ToTable("Chart1DBModel", t => t.ExcludeFromMigrations());
+            modelBuilder.Entity<Chart2DBModel>().HasNoKey().ToTable("Chart2DBModel", t => t.ExcludeFromMigrations());
+
+            modelBuilder.Entity<LoginDBModel>().HasNoKey().ToTable("LoginDBModel", t => t.ExcludeFromMigrations());
         }
     }
 }

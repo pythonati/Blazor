@@ -7,7 +7,6 @@ namespace FirstBlazor.OtherClasses
 {
     public class Identification
     {
-        private int _userId;
         public Identification()
         { }
 /*        public Identification GetUserId()
