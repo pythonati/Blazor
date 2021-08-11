@@ -19,6 +19,7 @@ namespace FirstBlazor.Pages
             {
                 var haspedPassword = ComputeHash(_model.Password, new SHA256CryptoServiceProvider());
 
+                rep_login.
             }
         }
         private string ComputeHash(string input, HashAlgorithm algorithm)
