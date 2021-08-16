@@ -1,7 +1,10 @@
 ﻿using FirstBlazor.Interfaces;
+using FirstBlazor.Models.DB.View;
 using System;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
+using FirstBlazor.OtherClasses.Enum;
 
 namespace FirstBlazor.Pages
 {
@@ -17,10 +20,42 @@ namespace FirstBlazor.Pages
 
             if (!string.IsNullOrEmpty(_model.Login) && !string.IsNullOrEmpty(_model.Password))
             {
-                var haspedPassword = ComputeHash(_model.Password, new SHA256CryptoServiceProvider());
-
-                rep_login.
+                SetUserId(LoginCheck());
             }
+        }
+        private LoginDBModel LoginCheck()
+        {
+            var haspedPassword = ComputeHash(_model.Password, new SHA256CryptoServiceProvider());
+
+            var _params = new Dictionary<string, string>()
+            {
+                {"Login", _model.Login },
+                { "Password", haspedPassword },
+                { "LoginType", _selectedLogin.ToString() }
+            };
+
+            return rep_login.UserId(_params);
+        }
+        private void SetUserId(LoginDBModel _login)
+        {
+            switch (_login.Result)
+            {
+                case LoginResults.Registered or LoginResults.Found:
+                    currentUser.Id = _login.UserId;
+                    Login();
+                    break;
+                case LoginResults.NotFound:
+                    _showPopup = true;
+                    _errorMessage = "Пользователь не найден, проверьте Имя и пароль";
+                    break;
+                case LoginResults.NotRegistered:
+                    _showPopup = true;
+                    _errorMessage = "Пользователь с таким именем уже существует в системе";
+                    break;
+                default:
+                    break;
+            }
+
         }
         private string ComputeHash(string input, HashAlgorithm algorithm)
         {

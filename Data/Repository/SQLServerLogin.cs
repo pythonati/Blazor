@@ -16,9 +16,16 @@ namespace FirstBlazor.Data.Repository
         }
         public LoginDBModel UserId(Dictionary<string, string> _params)
         {
-            var _login = _context.Set<LoginDBModel>().FromSqlInterpolated($"exec dbo.sp_Login @login={_params["login"]}, @password={_params["password"]}, @loginType ={_params["loginType"]}").AsNoTracking();
+            var _login = _context.Set<LoginDBModel>().FromSqlInterpolated($"exec dbo.sp_Login @pLogin={_params["Login"]}, @pPassword={_params["Password"]}, @pLoginType ={_params["LoginType"]}").AsNoTracking();
 
-            return _login?.FirstOrDefault();
+            LoginDBModel _result = new();
+
+            foreach (var item in _login)
+            {
+                _result = item;
+            }
+
+            return _result;
         }
     }
 }

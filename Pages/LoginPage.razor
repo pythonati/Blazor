@@ -1,7 +1,7 @@
 ﻿@page "/login";
 @inject NavigationManager navManager;
 @inject CurrentUser currentUser;
-@inject FirstBlazor.Interfaces.IRepositoryU2<LoginDBModel> rep_login;
+@inject FirstBlazor.Interfaces.IRepositoryU3<LoginDBModel> rep_login;
 
 <div class="container">
     <div class="row bcolor-ati-green">
@@ -29,12 +29,36 @@
         </div>
     </div>
 </div>
+@if (_showPopup)
+{
+    <div class="modal" tabindex="-1" style="display:block" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title">Ошибка</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="OnHidePopup">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h6><b>@_errorMessage</b></h6>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="OnHidePopup">Отмена</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 @code
 {
     private LoginPageModel _model = new();
 
     private int _selectedLogin = 1;
+
+    private bool _showPopup = false;
+    private string _errorMessage;
 
     private SaveButton btnSave = new();
     private RegistrationButton btnRegistration = new(id: 1);
@@ -47,5 +71,10 @@
     private void OnLogin()
     {
         Login();
+    }
+
+    private void OnHidePopup()
+    {
+        _showPopup = false;
     }
 }
