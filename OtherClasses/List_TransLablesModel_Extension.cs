@@ -1,8 +1,7 @@
-﻿using FirstBlazor.Models.DB;
-using System;
+﻿using FirstBlazor.Interfaces;
+using FirstBlazor.Models.DB;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace FirstBlazor.OtherClasses
 {

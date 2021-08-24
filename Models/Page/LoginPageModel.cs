@@ -1,4 +1,6 @@
 ﻿
+using FirstBlazor.Interfaces;
+
 namespace FirstBlazor.Models.Page
 {
     public class LoginPageModel

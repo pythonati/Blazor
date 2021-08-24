@@ -1,5 +1,4 @@
 ﻿using FirstBlazor.Interfaces;
-using FirstBlazor.Models.DB.View;
 using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
@@ -12,7 +11,7 @@ namespace FirstBlazor.Pages
     {
         private void Login()
         {
-            if (currentUser.Id > 0)
+            if (authUser.Id > 0)
             {
                 navManager.NavigateTo("/transaction");
                 return;
@@ -23,7 +22,7 @@ namespace FirstBlazor.Pages
                 SetUserId(LoginCheck());
             }
         }
-        private LoginDBModel LoginCheck()
+        private ILoginDBModel LoginCheck()
         {
             var haspedPassword = ComputeHash(_model.Password, new SHA256CryptoServiceProvider());
 
@@ -36,12 +35,13 @@ namespace FirstBlazor.Pages
 
             return rep_login.UserId(_params);
         }
-        private void SetUserId(LoginDBModel _login)
+        private void SetUserId(ILoginDBModel _login)
         {
             switch (_login.Result)
             {
                 case LoginResults.Registered or LoginResults.Found:
-                    currentUser.Id = _login.UserId;
+                    authUser.Id = _login.UserId;
+                    RefreshUserUrls(_login);
                     Login();
                     break;
                 case LoginResults.NotFound:
@@ -55,7 +55,15 @@ namespace FirstBlazor.Pages
                 default:
                     break;
             }
+        }
+        private void RefreshUserUrls(ILoginDBModel _login)
+        {
+            var _params = new Dictionary<string, string>()
+            {
+                {"userId", _login.UserId.ToString() }
+            };
 
+            authUser.Refresh(rep_userUrls.Items(_params));
         }
         private string ComputeHash(string input, HashAlgorithm algorithm)
         {

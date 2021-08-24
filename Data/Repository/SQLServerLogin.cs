@@ -2,11 +2,10 @@
 using FirstBlazor.Models.DB.View;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace FirstBlazor.Data.Repository
 {
-    public class SQLServerLogin : IRepositoryU3<LoginDBModel>
+    public class SQLServerLogin : IRepositoryU3<ILoginDBModel>
     {
         private readonly DB _context;
 
@@ -14,7 +13,7 @@ namespace FirstBlazor.Data.Repository
         {
             _context = context;
         }
-        public LoginDBModel UserId(Dictionary<string, string> _params)
+        public ILoginDBModel UserId(Dictionary<string, string> _params)
         {
             var _login = _context.Set<LoginDBModel>().FromSqlInterpolated($"exec dbo.sp_Login @pLogin={_params["Login"]}, @pPassword={_params["Password"]}, @pLoginType ={_params["LoginType"]}").AsNoTracking();
 

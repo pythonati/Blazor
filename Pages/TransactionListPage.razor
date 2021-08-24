@@ -70,7 +70,7 @@
 
     private DateTime _currDate = DateTime.MinValue;
     bool ShowPopupDelete = false;
-    private TransactionListModel _toDeleteItem;
+    private ITransactionListModel _toDeleteItem;
 
     protected override void OnInitialized()
     {
@@ -94,7 +94,7 @@
             DeleteTran(_toDeleteItem.Transaction);
         }
     }
-    private void OnRequestDelete(TransactionListModel item)
+    private void OnRequestDelete(ITransactionListModel item)
     {
         _toDeleteItem = item;
 

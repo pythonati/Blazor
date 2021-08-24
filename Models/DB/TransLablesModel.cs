@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using FirstBlazor.Interfaces;
 
 namespace FirstBlazor.Models.DB
 {

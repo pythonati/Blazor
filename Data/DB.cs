@@ -1,4 +1,5 @@
-﻿using FirstBlazor.Models.DB;
+﻿using FirstBlazor.Interfaces;
+using FirstBlazor.Models.DB;
 using FirstBlazor.Models.DB.View;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ namespace FirstBlazor.Data
             modelBuilder.Entity<Chart2DBModel>().HasNoKey().ToTable("Chart2DBModel", t => t.ExcludeFromMigrations());
 
             modelBuilder.Entity<LoginDBModel>().HasNoKey().ToTable("LoginDBModel", t => t.ExcludeFromMigrations());
+            modelBuilder.Entity<UserUrlDBModel>().HasNoKey().ToTable("UserUrlDBModel", t => t.ExcludeFromMigrations());
         }
     }
 }

@@ -1,17 +1,22 @@
-﻿USE [HomeMoney]
+USE [HomeMoney]
 GO
 
-/****** Объект: Table [dbo].[RoleUrls] Дата скрипта: 22.08.2021 8:42:13 ******/
+/****** Object:  Table [dbo].[RoleUrls]    Script Date: 22.08.2021 9:40:11 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE TABLE [dbo].[RoleUrls] (
-    [Id]     INT           IDENTITY (1, 1) NOT NULL,
-    [RoleId] INT           NOT NULL,
-    [Url]    VARCHAR (250) NOT NULL
-);
+CREATE TABLE [dbo].[RoleUrls](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[RoleId] [int] NOT NULL,
+	[Url] [varchar](250) NOT NULL,
+ CONSTRAINT [PK_RoleUrls] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
 
 

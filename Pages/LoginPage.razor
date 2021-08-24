@@ -1,7 +1,8 @@
 ﻿@page "/login";
 @inject NavigationManager navManager;
-@inject CurrentUser currentUser;
-@inject FirstBlazor.Interfaces.IRepositoryU3<LoginDBModel> rep_login;
+@inject AuthorizationClass authUser;
+@inject FirstBlazor.Interfaces.IRepositoryU3<ILoginDBModel> rep_login;
+@inject FirstBlazor.Interfaces.IRepositoryU2<UserUrlDBModel> rep_userUrls;
 
 <div class="container">
     <div class="row bcolor-ati-green">

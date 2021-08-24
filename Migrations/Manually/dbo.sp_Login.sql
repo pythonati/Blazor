@@ -1,15 +1,14 @@
-п»їUSE [HomeMoney]
+USE [HomeMoney]
 GO
 
-/****** РћР±СЉРµРєС‚: SqlProcedure [dbo].[sp_Login] Р”Р°С‚Р° СЃРєСЂРёРїС‚Р°: 16.08.2021 17:51:08 ******/
+/****** Object:  StoredProcedure [dbo].[sp_Login]    Script Date: 23.08.2021 17:15:14 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
 
-
-CREATE  or alter           PROCEDURE [dbo].[sp_Login]
+CREATE OR ALTER              PROCEDURE [dbo].[sp_Login]
 	@pLogin nvarchar(max),
 	@pPassword varchar(max),
 	@pLoginType int = 1
@@ -28,16 +27,30 @@ AS
 	where
 		Login = @pLogin
 
-	if @pLoginType = 2 and @existsUser = 0 begin		--РЎРѕР·РґР°С‚СЊ РµСЃР»Рё РЅРµС‚ С‚Р°РєРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+	if @pLoginType = 2 and @existsUser = 0 begin		--Создать если нет такого пользователя
 		insert into Users
+			(
+				Login,
+				Password
+			)
 			select
 				@pLogin,
 				@pPassword
 
 		select @newUser = scope_identity()
+
+		--Присвоить пользователю Роль по умолчанию
+		insert into UserRoles
+			(
+				UserId,
+				RoleId
+			)
+			select
+				@newUser,
+				1
 	end;
 
-/*	--СЃРј. C# РєРѕРґ
+/*	--см. C# код
     public enum LoginResults
     {
         Registered = 1,
@@ -73,3 +86,6 @@ AS
 	select
         @Result as Result,
         @UserId as UserId
+GO
+
+
