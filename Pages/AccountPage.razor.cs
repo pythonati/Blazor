@@ -8,7 +8,7 @@ namespace FirstBlazor.Pages
     {
         private void Initialized()
         {
-            authUser.Authorization(navManager.Uri);
+            authUser.Authorization(navManager);
 
             _model = new()
             {

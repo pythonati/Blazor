@@ -9,6 +9,8 @@ namespace FirstBlazor.Features.Dashboard.Chart1
     {
         private void Initialized()
         {
+            authUser.Authorization(navManager);
+
             CreateChartData();
         }
         private IEnumerable<Chart1DBModel> GetData()

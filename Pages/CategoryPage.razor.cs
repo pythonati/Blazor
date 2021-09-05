@@ -6,6 +6,8 @@ namespace FirstBlazor.Pages
     {
         private void Initialized()
         {
+            authUser.Authorization(navManager);
+
             _model = new()
             {
                 Category = rep_category.Items()
@@ -27,7 +29,7 @@ namespace FirstBlazor.Pages
 
             if (isNeedRefreshPage)
             {
-                NavManager.NavigateTo(NavManager.Uri, forceLoad: true);
+                navManager.NavigateTo(navManager.Uri, forceLoad: true);
             }
         }
         private void Delete(CategoryDBModel item)
@@ -35,7 +37,7 @@ namespace FirstBlazor.Pages
             rep_category.RemoveItem(item);
             rep_category.SaveChanges();
 
-            NavManager.NavigateTo(NavManager.Uri, forceLoad: true);
+            navManager.NavigateTo(navManager.Uri, forceLoad: true);
         }
     }
 }

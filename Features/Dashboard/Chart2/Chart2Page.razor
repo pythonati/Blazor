@@ -3,8 +3,8 @@
 @inject FirstBlazor.Interfaces.IRepositoryU1<AccountDBModel> rep_account;
 @inject FirstBlazor.Interfaces.IRepositoryU1<CategoryDBModel> rep_category;
 @inject FirstBlazor.Interfaces.IRepositoryU1<LableDBModel> rep_lable;
-@inject NavigationManager NavManager;
-
+@inject NavigationManager navManager;
+@inject AuthorizationClass authUser;
 
 <div class="container">
     <div class="row">
@@ -217,27 +217,27 @@
 
     private void OnApplyFilter()
     {
-        NavManager.NavigateTo(NavManager.Uri, forceLoad: true);
+        navManager.NavigateTo(navManager.Uri, forceLoad: true);
     }
 
     private void OnTran()
     {
-        NavManager.NavigateTo("/transaction");
+        navManager.NavigateTo("/transaction");
     }
     private void OnTranList()
     {
-        NavManager.NavigateTo("/transaction_list");
+        navManager.NavigateTo("/transaction_list");
     }
     private void OnAccounts()
     {
-        NavManager.NavigateTo("/account");
+        navManager.NavigateTo("/account");
     }
     private void OnCategory()
     {
-        NavManager.NavigateTo("/category");
+        navManager.NavigateTo("/category");
     }
     private void OnLables()
     {
-        NavManager.NavigateTo("/lable");
+        navManager.NavigateTo("/lable");
     }
 }

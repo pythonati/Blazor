@@ -11,6 +11,8 @@ namespace FirstBlazor.Pages
     {
         private void Initialized()
         {
+            authUser.Authorization(navManager);
+
             if (id == 0)
             {
                 CreateNewTransaction();

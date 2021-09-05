@@ -1,4 +1,5 @@
 ﻿using FirstBlazor.Models.DB.View;
+using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,17 +9,26 @@ namespace FirstBlazor.OtherClasses
     {
         private List<UserUrlDBModel> _availableUrls = new();
         public int Id { get; set; }
-        public bool Authorization(string _url)
+        public void Authorization(NavigationManager navManager)
         {
+            if (navManager is null)
+            {
+                navManager.NavigateTo("/login");
+                return;
+            }
             //Если пользователь не Идентифицирован, то отправляем на страницу Login
             if (Id == 0)
             {
-                //                navManager.NavigateTo("/login");
-                return true;
+                navManager.NavigateTo("/login");
+                return;
             }
 
             //Это надо проверить на корректность логики проверки Url
-            return _availableUrls.Exists(i => _url.ToUpper().Contains(i.Url));
+            if (!_availableUrls.Exists(i => (navManager.Uri + '/').ToUpper().Contains((navManager.BaseUri + i.Url + '/').ToUpper())))
+            {
+                navManager.NavigateTo("/login");
+                return;
+            }
         }
         public void Refresh(IEnumerable<UserUrlDBModel> _urls)
         {

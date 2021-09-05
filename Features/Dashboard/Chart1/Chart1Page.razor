@@ -2,8 +2,8 @@
 @inject FirstBlazor.Interfaces.IRepositoryU2<Chart1DBModel> rep_chart
 @inject FirstBlazor.Interfaces.IRepositoryU1<AccountDBModel> rep_account;
 @inject FirstBlazor.Interfaces.IRepositoryU1<CategoryDBModel> rep_category;
-@inject NavigationManager NavManager;
-
+@inject NavigationManager navManager;
+@inject AuthorizationClass authUser;
 
 <div class="container">
     <div class="row">
@@ -159,6 +159,6 @@
 
     private void OnApplyFilter()
     {
-        NavManager.NavigateTo(NavManager.Uri, forceLoad: true);
+        navManager.NavigateTo(navManager.Uri, forceLoad: true);
     }
 }

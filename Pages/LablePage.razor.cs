@@ -10,6 +10,8 @@ namespace FirstBlazor.Pages
     {
         private void Initialized()
         {
+            authUser.Authorization(navManager);
+
             _model = new()
             {
                 Lables = rep_lable.Items()
@@ -31,7 +33,7 @@ namespace FirstBlazor.Pages
 
             if (isNeedRefreshPage)
             {
-                NavManager.NavigateTo(NavManager.Uri, forceLoad: true);
+                navManager.NavigateTo(navManager.Uri, forceLoad: true);
             }
         }
         private void Delete(LableDBModel item)
@@ -39,7 +41,7 @@ namespace FirstBlazor.Pages
             rep_lable.RemoveItem(item);
             rep_lable.SaveChanges();
 
-            NavManager.NavigateTo(NavManager.Uri, forceLoad: true);
+            navManager.NavigateTo(navManager.Uri, forceLoad: true);
         }
     }
 }

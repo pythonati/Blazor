@@ -9,6 +9,8 @@ namespace FirstBlazor.Pages
     {
         private void Initialized()
         {
+            authUser.Authorization(navManager);
+
             List<AccountDBModel> accounts = rep_account.Items().ToList();
 
             _model.Transactions = new();
@@ -29,7 +31,7 @@ namespace FirstBlazor.Pages
             rep_trans.RemoveItem(item);
             rep_trans.SaveChanges();
 
-            NavManager.NavigateTo(NavManager.Uri, forceLoad: true);
+            navManager.NavigateTo(navManager.Uri, forceLoad: true);
         }
     }
 }
